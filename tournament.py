@@ -18,8 +18,8 @@ class Tournament:
                 
             # Extract unique teams
             for m in self.matches:
-                if 'home_team' in m: self.teams.add(m['home_team'])
-                if 'away_team' in m: self.teams.add(m['away_team'])
+                if 'squadra_a' in m: self.teams.add(m['squadra_a'])
+                if 'squadra_b' in m: self.teams.add(m['squadra_b'])
             
             # Filter None if any
             self.teams.discard(None)
@@ -39,13 +39,14 @@ class Tournament:
         })
         
         for m in self.matches:
-            if not m.get('played') or m.get('home_score') is None or m.get('away_score') is None:
+            # Skip if match data is incomplete
+            if 'gol_a' not in m or 'gol_b' not in m or m['gol_a'] is None or m['gol_b'] is None:
                 continue
                 
-            h = m['home_team']
-            a = m['away_team']
-            hs = m['home_score']
-            as_ = m['away_score']
+            h = m['squadra_a']
+            a = m['squadra_b']
+            hs = m['gol_a']
+            as_ = m['gol_b']
             
             stats[h]['played'] += 1
             stats[a]['played'] += 1
@@ -79,10 +80,10 @@ class Tournament:
         gd_a = 0
         
         for m in self.matches:
-            if not m.get('played') or m.get('home_score') is None: continue
+            if 'gol_a' not in m or m['gol_a'] is None: continue
             
-            if m['home_team'] == team_a and m['away_team'] == team_b:
-                hs, as_ = m['home_score'], m['away_score']
+            if m['squadra_a'] == team_a and m['squadra_b'] == team_b:
+                hs, as_ = m['gol_a'], m['gol_b']
                 if hs > as_: points_a += 3
                 elif hs < as_: points_b += 3
                 else: 
@@ -90,8 +91,8 @@ class Tournament:
                     points_b += 1
                 gd_a += (hs - as_)
                 
-            elif m['home_team'] == team_b and m['away_team'] == team_a:
-                hs, as_ = m['home_score'], m['away_score']
+            elif m['squadra_a'] == team_b and m['squadra_b'] == team_a:
+                hs, as_ = m['gol_a'], m['gol_b']
                 if hs > as_: points_b += 3
                 elif hs < as_: points_a += 3
                 else:
