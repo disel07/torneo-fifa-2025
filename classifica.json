@@ -19,7 +19,7 @@
             "posizione": 2
         },
         {
-            "squadra": "Alessandro (Man City)",
+            "squadra": "Giuseppe (Bayern)",
             "giornate": 0,
             "gol_fatti": 0,
             "gol_subiti": 0,
@@ -28,7 +28,7 @@
             "posizione": 3
         },
         {
-            "squadra": "Giuseppe (Bayern)",
+            "squadra": "Alessandro (Man City)",
             "giornate": 0,
             "gol_fatti": 0,
             "gol_subiti": 0,
@@ -46,5 +46,5 @@
             "posizione": 5
         }
     ],
-    "ultimo_aggiornamento": "2025-12-12 21:50:36"
+    "ultimo_aggiornamento": "2025-12-12 20:54:51"
 }
