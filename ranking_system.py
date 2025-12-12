@@ -122,15 +122,10 @@ class Tournament:
         ]
 
     def _sort_tied_group(self, group: List[TeamStats]):
-        # This function sorts the group IN PLACE based on tiebreakers.
-        # 1. H2H (points in matches between them, then GD in matches between them, then GF in matches between them?)
-        # User specified: 1. SCONTRI DIRETTI (gol fatti vs subiti negli scontri) -> H2H Goal Diff
-        # Implicitly H2H points usually comes first, but user said "gol fatti vs subiti negli scontri".
-        # Let's interpret "SCONTRI DIRETTI" broadly as H2H performance. 
-        # Standard interpretation: Points in H2H matches -> Goal Diff in H2H matches -> Goals For in H2H matches.
-        # If user ONLY said "gol fatti vs subiti", maybe they just mean H2H GD. 
-        # But usually points > GD. Let's stick to H2H GD as primary requested H2H metric, but typically H2H points is the first filter.
-        # However, if 3 teams are tied, we look at a mini-table of matches involving only them.
+        # Custom sort logic for tied group
+        # Create a copy because accessing 'group' inside its own sort key function 
+        # might reveal an empty/modifying list depending on implementation.
+        group_copy = list(group)
         
         def h2h_key(t):
             # Calculate metrics against other teams in THIS tied group
@@ -138,7 +133,7 @@ class Tournament:
             h2h_gf = 0
             h2h_ga = 0
             
-            others = [x.name for x in group if x.name != t.name]
+            others = [x.name for x in group_copy if x.name != t.name]
             
             for m in self.matches:
                 if not m.played:

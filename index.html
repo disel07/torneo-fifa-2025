@@ -4,235 +4,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CYBER LEAGUE // DASHBOARD</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
-        rel="stylesheet">
+    <title>Torneo FIFA 2025 - Dashboard</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
         :root {
-            --bg-color: #0a0a0a;
-            --neon-blue: #00FFFF;
-            --neon-green: #00FF00;
-            --neon-pink: #FF00FF;
+            --bg-color: #050505;
+            --card-bg: #0a0a0a;
+            --neon-blue: #00f3ff;
+            --neon-green: #00ff41;
+            --neon-pink: #ff00de;
+            --neon-red: #ff3131;
+            --grid-line: rgba(0, 243, 255, 0.1);
             --text-main: #e0e0e0;
-            --glass-bg: rgba(20, 20, 20, 0.8);
-            --border-glow: 0 0 10px rgba(0, 255, 255, 0.5);
         }
 
         * {
             box-sizing: border-box;
-            scrollbar-width: thin;
-            scrollbar-color: var(--neon-blue) var(--bg-color);
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            margin: 0;
-            padding: 0;
             background-color: var(--bg-color);
             color: var(--text-main);
             font-family: 'Space Mono', monospace;
+            background-image:
+                linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
             overflow-x: hidden;
             min-height: 100vh;
-            background-image:
-                linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 30px 30px;
         }
 
-        /* Scanline Anim */
-        body::after {
-            content: " ";
-            display: block;
-            position: absolute;
+        /* Scanline effect */
+        body::before {
+            content: "";
+            position: fixed;
             top: 0;
             left: 0;
-            bottom: 0;
-            right: 0;
+            width: 100%;
+            height: 100%;
             background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 2;
+            z-index: 100;
             background-size: 100% 2px, 3px 100%;
             pointer-events: none;
         }
 
-        .scan-line {
-            width: 100%;
-            height: 5px;
-            z-index: 10;
-            background: rgba(0, 255, 255, 0.3);
-            opacity: 0.3;
-            animation: scanline 6s linear infinite;
-            position: fixed;
-            pointer-events: none;
-        }
-
-        @keyframes scanline {
-            0% {
-                top: -10%;
-            }
-
-            100% {
-                top: 110%;
-            }
-        }
-
         header {
             text-align: center;
-            padding: 2rem;
-            border-bottom: 2px solid var(--neon-pink);
-            box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
-            margin-bottom: 2rem;
+            padding: 3rem 1rem;
             position: relative;
+            border-bottom: 2px solid var(--neon-blue);
+            box-shadow: 0 0 20px var(--neon-blue), inset 0 0 20px rgba(0, 243, 255, 0.2);
         }
 
         h1 {
-            font-size: 2.5rem;
-            margin: 0;
-            text-transform: uppercase;
-            letter-spacing: 4px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
             color: #fff;
-            text-shadow:
-                0 0 5px #fff,
-                0 0 10px #fff,
-                0 0 20px var(--neon-blue),
-                0 0 40px var(--neon-blue);
-            animation: flicker 4s infinite;
+            text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue), 0 0 40px var(--neon-blue);
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
         }
 
-        @keyframes flicker {
-
-            0%,
-            19%,
-            21%,
-            23%,
-            25%,
-            54%,
-            56%,
-            100% {
-                opacity: 1;
-            }
-
-            20%,
-            24%,
-            55% {
-                opacity: 0.4;
-            }
+        .subtitle {
+            color: var(--neon-pink);
+            font-size: 1.2rem;
+            text-shadow: 0 0 5px var(--neon-pink);
+            letter-spacing: 4px;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 1rem;
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            /* Leaderboard gets more space */
-            gap: 2rem;
-            padding-bottom: 3rem;
-        }
-
-        @media (max-width: 900px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* CARD STYLES */
-        .cyber-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--neon-blue);
-            padding: 1.5rem;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+            padding: 2rem 1rem;
             position: relative;
-            backdrop-filter: blur(5px);
+            z-index: 1;
         }
 
-        .cyber-card::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            z-index: -1;
+        /* Standings Table */
+        .standings-section {
+            margin-bottom: 4rem;
         }
 
-        .section-title {
-            color: var(--neon-green);
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-            border-left: 5px solid var(--neon-green);
-            padding-left: 10px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 0 0 5px var(--neon-green);
-        }
-
-        /* LEADERBOARD TABLE */
-        .table-container {
+        .neon-table-container {
             overflow-x: auto;
+            border: 1px solid var(--neon-blue);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.1);
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(5px);
+            border-radius: 4px;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            color: #ccc;
-            font-size: 0.95rem;
+            font-size: 1.1rem;
         }
 
         th {
-            text-align: left;
-            padding: 1rem;
-            border-bottom: 2px solid var(--neon-blue);
+            background: rgba(0, 243, 255, 0.1);
             color: var(--neon-blue);
+            padding: 1rem;
+            text-align: left;
             text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid var(--neon-blue);
         }
 
         td {
             padding: 1rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+            transition: all 0.2s;
         }
 
         tr:hover td {
-            background-color: rgba(0, 255, 255, 0.1);
+            background: rgba(0, 243, 255, 0.1);
             color: #fff;
-            text-shadow: 0 0 5px var(--neon-blue);
+            text-shadow: 0 0 5px #fff;
         }
 
-        .pos-1 {
-            color: var(--neon-green);
-            text-shadow: 0 0 5px var(--neon-green);
+        .rank-cell {
             font-weight: bold;
-        }
-
-        .pos-2,
-        .pos-3 {
-            color: #ccffcc;
+            color: var(--neon-green);
         }
 
         .team-cell {
-            display: flex;
-            align-items: center;
-            gap: 10px;
             font-weight: bold;
         }
 
-        /* MATCHES */
+        .points-cell {
+            color: var(--neon-pink);
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-shadow: 0 0 5px var(--neon-pink);
+        }
+
+        /* Matches Section */
+        .matches-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
         .match-card {
-            border: 1px solid var(--neon-pink);
-            background: rgba(255, 0, 255, 0.05);
-            margin-bottom: 1rem;
-            padding: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: transform 0.2s;
+            background: #0d0d0d;
+            border: 1px solid var(--neon-green);
+            padding: 1.5rem;
+            position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .match-card:hover {
-            transform: translateX(5px);
-            background: rgba(255, 0, 255, 0.1);
-            box-shadow: 0 0 10px rgba(255, 0, 255, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+        }
+
+        .match-header {
+            color: var(--neon-green);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dashed var(--neon-green);
+            padding-bottom: 0.5rem;
         }
 
         .match-teams {
@@ -242,244 +178,259 @@
             font-size: 1.1rem;
         }
 
-        .match-meta {
-            text-align: right;
-            font-size: 0.8rem;
-            color: var(--neon-blue);
-        }
-
-        .match-status {
+        .match-score {
             font-weight: bold;
-            color: var(--neon-green);
+            color: var(--neon-pink);
+            margin-left: auto;
         }
 
-        .live {
-            color: #ff0000;
-            text-shadow: 0 0 5px red;
-            animation: pulse 1s infinite;
+        .empty-match {
+            color: #555;
+            font-style: italic;
         }
 
-        @keyframes pulse {
-            0% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.5;
-            }
-
-            100% {
-                opacity: 1;
-            }
-        }
-
-        /* STATS */
-        .stats-grid {
-            margin-top: 2rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        .stat-box {
-            background: rgba(0, 0, 0, 0.5);
+        /* Stats */
+        .stats-ticker {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            background: rgba(255, 0, 222, 0.05);
             padding: 1rem;
-            border: 1px solid gray;
-            text-align: center;
+            border-left: 4px solid var(--neon-pink);
         }
 
-        .stat-value {
-            font-size: 2rem;
-            color: var(--neon-blue);
-            text-shadow: 0 0 10px var(--neon-blue);
-            display: block;
-            margin-top: 0.5rem;
+        .stat-item {
+            font-size: 0.9rem;
         }
 
         .stat-label {
-            font-size: 0.8rem;
-            color: #888;
+            color: var(--neon-pink);
             text-transform: uppercase;
+            font-size: 0.7rem;
         }
 
-        /* LOADING */
-        #loading {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            color: var(--neon-green);
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+            color: #666;
             font-size: 0.8rem;
-            display: none;
+            border-top: 1px solid #333;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            th,
+            td {
+                padding: 0.8rem 0.5rem;
+                font-size: 0.9rem;
+            }
+
+            .matches-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 
 <body>
-    <div class="scan-line"></div>
-    <div id="loading">UPDATING DATA...</div>
 
     <header>
-        <h1>Cyber League 2077</h1>
-        <div style="font-size: 0.8rem; margin-top: 10px; color: var(--neon-blue); letter-spacing: 2px;">
-            SEASON 05 // SYSTEM ONLINE
-        </div>
+        <h1>TORNEO FIFA 2025</h1>
+        <div class="subtitle">CLASSIFICA LIVE</div>
     </header>
 
     <div class="container">
-        <!-- LEFT COLUMN: LEADERBOARD -->
-        <main>
-            <div class="cyber-card">
-                <h2 class="section-title">Classifica Ufficiale</h2>
-                <div class="table-container">
+
+        <div id="stats-area" class="stats-ticker">
+            <!-- JS injected stats -->
+            <div class="stat-item">Caricamento statistiche...</div>
+        </div>
+
+        <section class="standings-section">
+            <h2 style="color: var(--neon-blue); margin-bottom: 1rem; text-shadow: 0 0 10px var(--neon-blue);">CLASSIFICA
+                GENERALE</h2>
+            <div class="neon-table-container">
+                <table>
                     <thead>
-                        <!-- HEADER INSERTED DYNAMICALLY OR STATIC -->
+                        <tr>
+                            <th>Pos</th>
+                            <th>Squadra</th>
+                            <th>G</th>
+                            <th>V/P/S (Pts)</th>
+                            <th>GF</th>
+                            <th>GS</th>
+                            <th>DR</th>
+                            <th>Punti</th>
+                        </tr>
                     </thead>
-                    <table id="leaderboard">
-                        <thead>
-                            <tr>
-                                <th width="10%">POS</th>
-                                <th width="40%">TEAM</th>
-                                <th>PG</th>
-                                <th>GF</th>
-                                <th>GS</th>
-                                <th>DR</th>
-                                <th>PTS</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- ROWS WILL BE INJECTED HERE -->
-                        </tbody>
-                    </table>
-                </div>
+                    <tbody id="standings-body">
+                        <tr>
+                            <td colspan="8" style="text-align:center">Caricamento dati...</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
+        </section>
 
-            <div class="stats-grid">
-                <div class="cyber-card stat-box">
-                    <span class="stat-label">Best Attack</span>
-                    <span class="stat-value" id="stat-best-attack">-</span>
-                    <small id="stat-best-attack-team" style="color: #fff;"></small>
-                </div>
-                <div class="cyber-card stat-box">
-                    <span class="stat-label">Best Defense</span>
-                    <span class="stat-value" id="stat-best-defense">-</span>
-                    <small id="stat-best-defense-team" style="color: #fff;"></small>
-                </div>
+        <section>
+            <h2 style="color: var(--neon-green); margin-bottom: 1rem; text-shadow: 0 0 10px var(--neon-green);">
+                CALENDARIO PARTITE</h2>
+            <div id="matches-container" class="matches-grid">
+                <!-- JS injected matches -->
             </div>
-        </main>
+        </section>
 
-        <!-- RIGHT COLUMN: MATCHES -->
-        <aside>
-            <div class="cyber-card">
-                <h2 class="section-title">Incoming Transmissions</h2>
-                <div id="matches-list">
-                    <!-- MATCHES INJECTED HERE -->
-                </div>
-            </div>
-        </aside>
     </div>
 
-    <script>
-        const API_URL_CLASSIFICA = 'classifica.json';
-        const API_URL_MATCHES = 'matches.json';
-        const UPDATE_INTERVAL = 30000;
+    <footer>
+        <div id="last-update">Ultimo aggiornamento: --</div>
+        <br>
+        <a href="#" style="color: #666; text-decoration: none;">GitHub Repository</a>
+    </footer>
 
+    <script>
         async function fetchData() {
-            document.getElementById('loading').style.display = 'block';
             try {
-                // Fetch in parallel
-                const [resClassifica, resMatches] = await Promise.all([
-                    fetch(API_URL_CLASSIFICA),
-                    fetch(API_URL_MATCHES)
+                // Anti-cache param
+                const t = new Date().getTime();
+
+                const [standingsRes, matchesRes] = await Promise.all([
+                    fetch('classifica.json?t=' + t),
+                    fetch('matches.json?t=' + t)
                 ]);
 
-                if (!resClassifica.ok || !resMatches.ok) throw new Error('System Malfunction');
+                if (!standingsRes.ok || !matchesRes.ok) throw new Error("File missing");
 
-                const classifica = await resClassifica.json();
-                const matches = await resMatches.json();
+                const standingsData = await standingsRes.json();
+                const matchesData = await matchesRes.json();
 
-                renderLeaderboard(classifica);
-                renderMatches(matches);
-                calculateStats(classifica);
+                renderStandings(standingsData.classifica);
+                renderMatches(matchesData.matches);
 
-            } catch (error) {
-                console.error('Data Uplink Failed:', error);
-            } finally {
-                setTimeout(() => {
-                    document.getElementById('loading').style.display = 'none';
-                }, 1000);
+                document.getElementById('last-update').textContent = 'Ultimo aggiornamento: ' + (standingsData.ultimo_aggiornamento || 'N/A');
+
+                calculateStats(standingsData.classifica);
+
+            } catch (e) {
+                console.error("Error fetching data:", e);
             }
         }
 
-        function renderLeaderboard(data) {
-            const tbody = document.querySelector('#leaderboard tbody');
+        function renderStandings(data) {
+            const tbody = document.getElementById('standings-body');
             tbody.innerHTML = '';
 
-            // Sort by points desc, then DR desc
-            data.sort((a, b) => b.punti - a.punti || b.dr - a.dr);
-
-            data.forEach((row, index) => {
+            data.forEach(team => {
                 const tr = document.createElement('tr');
-                const posClass = index === 0 ? 'pos-1' : (index < 3 ? 'pos-2' : '');
-
                 tr.innerHTML = `
-                    <td class="${posClass}">#${row.posizione}</td>
-                    <td class="team-cell" style="color: #fff;">${row.squadra}</td>
-                    <td>${row.giornate}</td>
-                    <td>${row.gf}</td>
-                    <td>${row.gs}</td>
-                    <td>${row.dr > 0 ? '+' : ''}${row.dr}</td>
-                    <td style="color: var(--neon-blue); font-weight: bold; font-size: 1.1em;">${row.punti}</td>
-                `;
+                <td class="rank-cell">#${team.posizione}</td>
+                <td class="team-cell">${team.squadra}</td>
+                <td>${team.giornate}</td>
+                <td>-</td>
+                <td>${team.gol_fatti}</td>
+                <td>${team.gol_subiti}</td>
+                <td style="color: ${team.differenza_reti >= 0 ? 'var(--neon-green)' : 'var(--neon-red)'}">
+                    ${team.differenza_reti > 0 ? '+' : ''}${team.differenza_reti}
+                </td>
+                <td class="points-cell">${team.punti}</td>
+            `;
                 tbody.appendChild(tr);
             });
         }
 
-        function renderMatches(data) {
-            const container = document.getElementById('matches-list');
+        function renderMatches(matches) {
+            const container = document.getElementById('matches-container');
             container.innerHTML = '';
 
-            data.forEach(match => {
-                const isLive = match.status === 'LIVE';
-                const div = document.createElement('div');
-                div.className = 'match-card';
-                div.style.borderColor = isLive ? '#ff0000' : 'var(--neon-pink)';
+            // Show only active or future matches (or last 5 + next 5, but for now show all sorted)
+            // Let's show grouped by Matchday (Giornata)
+            // Group matches by jornada
+            const grouped = {};
+            matches.forEach(m => {
+                if (!grouped[m.giornata]) grouped[m.giornata] = [];
+                grouped[m.giornata].push(m);
+            });
 
-                const homeEmoji = match.home_emoji || '🛡️';
-                const awayEmoji = match.away_emoji || '⚔️';
+            // Find next matchday (first with non-completed matches)
+            let nextDay = 1;
+            // Simple logic: show all for now, maybe filtered in V2
+            // Just showing latest/upcoming
 
-                div.innerHTML = `
-                    <div class="match-teams">
-                        <div>${homeEmoji} ${match.home}</div>
-                        <div>${awayEmoji} ${match.away}</div>
+            matches.sort((a, b) => a.id - b.id);
+
+            matches.forEach(m => {
+                const card = document.createElement('div');
+                card.className = 'match-card';
+
+                let status = "DA GIOCARE";
+                let score = "";
+                let scoreClass = "empty-match";
+
+                if (m.risultato) {
+                    status = "TERMINATA";
+                    score = `${m.gol_a} - ${m.gol_b}`;
+                    scoreClass = "match-score";
+                    if (m.risultato.startsWith("rigori")) score += " (dcr)";
+                }
+
+                card.innerHTML = `
+                <div class="match-header">
+                    <span>GIORNATA ${m.giornata}</span>
+                    <span>${status}</span>
+                </div>
+                <div class="match-teams">
+                    <div style="display:flex; justify-content:space-between">
+                        <span>${m.squadra_a}</span>
+                        ${m.risultato ? `<span>${m.gol_a}</span>` : ''}
                     </div>
-                    <div class="match-meta">
-                        <div class="match-status ${isLive ? 'live' : ''}">${match.status}</div>
-                        <div>${isLive ? match.score : match.time}</div>
+                    <div style="display:flex; justify-content:space-between">
+                        <span>${m.squadra_b}</span>
+                        ${m.risultato ? `<span>${m.gol_b}</span>` : ''}
                     </div>
-                `;
-                container.appendChild(div);
+                </div>
+            `;
+                container.appendChild(card);
             });
         }
 
-        function calculateStats(data) {
-            if (!data.length) return;
+        function calculateStats(ranking) {
+            if (!ranking.length) return;
 
-            // Best Attack
-            let bestAttack = data.reduce((prev, curr) => prev.gf > curr.gf ? prev : curr);
-            document.getElementById('stat-best-attack').textContent = bestAttack.gf;
-            document.getElementById('stat-best-attack-team').textContent = bestAttack.squadra;
+            const topScorerTeam = ranking.reduce((prev, current) => (prev.gol_fatti > current.gol_fatti) ? prev : current);
+            const defenseTeam = ranking.reduce((prev, current) => (prev.gol_subiti < current.gol_subiti) ? prev : current);
 
-            // Best Defense (Lowest GS)
-            let bestDefense = data.reduce((prev, curr) => prev.gs < curr.gs ? prev : curr);
-            document.getElementById('stat-best-defense').textContent = bestDefense.gs;
-            document.getElementById('stat-best-defense-team').textContent = bestDefense.squadra;
+            const statsArea = document.getElementById('stats-area');
+            statsArea.innerHTML = `
+            <div class="stat-item">
+                <div class="stat-label">Miglior Attacco</div>
+                <div class="stat-value" style="color: var(--neon-green)">${topScorerTeam.squadra} (${topScorerTeam.gol_fatti})</div>
+            </div>
+             <div class="stat-item">
+                <div class="stat-label">Miglior Difesa</div>
+                <div class="stat-value" style="color: var(--neon-blue)">${defenseTeam.squadra} (${defenseTeam.gol_subiti})</div>
+            </div>
+             <div class="stat-item">
+                <div class="stat-label">Totale Squadre</div>
+                <div class="stat-value">${ranking.length}</div>
+            </div>
+        `;
         }
 
         // Init
         fetchData();
-        setInterval(fetchData, UPDATE_INTERVAL);
-
+        // Auto refresh
+        setInterval(fetchData, 30000);
     </script>
+
 </body>
 
 </html>

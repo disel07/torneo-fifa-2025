@@ -4,36 +4,30 @@ on:
   push:
     paths:
       - 'matches.json'
-  workflow_dispatch:
-
-permissions:
-  contents: write
+      - 'tournament.py'
 
 jobs:
-  update-ranking:
+  calculate:
     runs-on: ubuntu-latest
-    
+    permissions:
+      contents: write
     steps:
-    - name: Checkout repo
-      uses: actions/checkout@v3
-
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.x'
-
-    - name: Run ranking script
-      run: |
-        python tournament.py
-
-    - name: Commit and Push if changed
-      run: |
-        git config --global user.name 'GitHub Actions Bot'
-        git config --global user.email 'actions@github.com'
-        git add classifica.json
-        if git diff --staged --quiet; then
-          echo "No changes to commit"
-        else
-          git commit -m "Auto-update classification table from matches.json"
+      - uses: actions/checkout@v3
+        with:
+            token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          
+      - name: Run tournament calculation
+        run: python tournament.py
+        
+      - name: Commit updated standings
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add classifica.json
+          git diff --staged --quiet || git commit -m "Auto-update standings [skip ci]"
           git push
-        fi

@@ -1,123 +1,90 @@
 import unittest
-import json
-import os
-from tournament import Tournament
+from tournament import calculate_standings, RES_90, RES_RIG_A, RES_RIG_B
 
 class TestTournament(unittest.TestCase):
-    def setUp(self):
-        self.test_file = 'test_matches.json'
-        
-    def tearDown(self):
-        if os.path.exists(self.test_file):
-            os.remove(self.test_file)
-
-    def create_matches(self, matches):
-        with open(self.test_file, 'w') as f:
-            json.dump(matches, f)
-
-    def test_basic_points(self):
-        """Test simple point calculation (Win=3, Draw=1, Loss=0)"""
+    
+    def test_points_calculation(self):
+        # Match: A wins 3-0
         matches = [
-            {"home_team": "A", "away_team": "B", "home_score": 2, "away_score": 0, "played": True}, # A:3, B:0
-            {"home_team": "C", "away_team": "A", "home_score": 1, "away_score": 1, "played": True}  # C:1, A:1 -> A:4
+            {"squadra_a": "A", "squadra_b": "B", "gol_a": 3, "gol_b": 0, "risultato": RES_90},
         ]
-        self.create_matches(matches)
-        t = Tournament(self.test_file)
-        ranking = t.get_ranking()
-        
-        self.assertEqual(ranking[0]['team'], "A")
-        self.assertEqual(ranking[0]['points'], 4)
-        self.assertEqual(ranking[1]['team'], "C") # C has 1, B has 0
-        self.assertEqual(ranking[2]['team'], "B")
+        rank = calculate_standings(matches)
+        team_a = next(t for t in rank if t["squadra"] == "A")
+        team_b = next(t for t in rank if t["squadra"] == "B")
+        self.assertEqual(team_a["punti"], 3)
+        self.assertEqual(team_b["punti"], 0)
 
-    def test_tiebreaker_points(self):
-        """Test simplest tiebreaker: More points wins"""
+        # Match: A wins penalties (2-2 draw)
         matches = [
-            {"home_team": "A", "away_team": "B", "home_score": 1, "away_score": 0, "played": True}, # A:3, B:0
+            {"squadra_a": "A", "squadra_b": "B", "gol_a": 2, "gol_b": 2, "risultato": RES_RIG_A},
         ]
-        self.create_matches(matches)
-        t = Tournament(self.test_file)
-        ranking = t.get_ranking()
-        self.assertEqual(ranking[0]['team'], "A")
+        rank = calculate_standings(matches)
+        team_a = next(t for t in rank if t["squadra"] == "A")
+        team_b = next(t for t in rank if t["squadra"] == "B")
+        self.assertEqual(team_a["punti"], 2)
+        self.assertEqual(team_b["punti"], 1)
 
-    def test_tiebreaker_h2h_points(self):
-        """Test H2H: Team A and B tied on overall points, but A beat B."""
-        # Scenario: 
-        # A vs B -> A wins (A=3, B=0)
-        # B vs C -> B wins (B=3, C=0)
-        # C vs A -> C wins (C=3, A=0)
-        # This is a 3-way tie logic, actually. Let's make it simpler for direct H2H.
-        
-        # A vs B -> A wins (A=3, B=0 in H2H)
-        # A vs C -> A loses (A=3)
-        # B vs C -> B wins (B=3)
-        # Result: A=3, B=3 (Overall). H2H: A beat B.
+    def test_tiebreaker_h2h(self):
+        # A and B have same points (3 each).
+        # Match 1: A beats B 2-0.
+        # Match 2: B beats A 3-0.
+        # Aggregate: B wins 3-2. B should be first.
         matches = [
-            {"home_team": "A", "away_team": "B", "home_score": 1, "away_score": 0, "played": True},
-            {"home_team": "A", "away_team": "C", "home_score": 0, "away_score": 2, "played": True},
-            {"home_team": "B", "away_team": "D", "home_score": 5, "away_score": 0, "played": True}, # B boosts GD to try to trick logic, but H2H comes first
-            {"home_team": "A", "away_team": "E", "home_score": 0, "away_score": 10, "played": True} # A terrible GD
+            {"squadra_a": "A", "squadra_b": "B", "gol_a": 2, "gol_b": 0, "risultato": RES_90},
+            {"squadra_a": "B", "squadra_b": "A", "gol_a": 3, "gol_b": 0, "risultato": RES_90},
+            # Dummy games to equalise points if needed, but here simple trade is enough:
+            # A has 3 pts, B has 3 pts.
+            # H2H: A has +2-3 = -1. B has +3-2 = +1. B wins.
         ]
-        # A: 3 pts (won vs B, lost vs C, lost vs E)
-        # B: 3 pts (lost vs A, won vs D)
-        # Note: We need accurate point totals.
-        
-        # Let's construct explicit equal points scenario.
-        # A: 3 pts, B: 3 pts. 
-        # A beat B directly.
-        matches = [
-            {"home_team": "A", "away_team": "B", "home_score": 2, "away_score": 1, "played": True}, # A beats B
-            {"home_team": "A", "away_team": "C", "home_score": 0, "away_score": 5, "played": True}, # A loses big
-            {"home_team": "B", "away_team": "D", "home_score": 5, "away_score": 0, "played": True}, # B wins big
-        ]
-        # A: 3 pts, GD -4
-        # B: 3 pts, GD +4
-        # Even though B has better GD, A should win on H2H.
-        
-        self.create_matches(matches)
-        t = Tournament(self.test_file)
-        ranking = t.get_ranking()
-        
-        # Filter only A and B to check relative order
-        ab_rank = [x['team'] for x in ranking if x['team'] in ['A', 'B']]
-        self.assertEqual(ab_rank, ['A', 'B'], "A should be above B due to H2H despite worse GD")
+        rank = calculate_standings(matches)
+        self.assertEqual(rank[0]["squadra"], "B")
+        self.assertEqual(rank[1]["squadra"], "A")
 
-    def test_tiebreaker_h2h_gd(self):
-        """Test H2H Goal Difference (e.g. 2 legs, points equal)."""
-        # A vs B: 2-0
-        # B vs A: 3-0 (B wins H2H GD)
-        # A and B must have same total points.
+    def test_tiebreaker_h2h_away_goals(self):
+        # A and B same points.
+        # A (Home) 1-2 B (Away)
+        # B (Home) 0-1 A (Away)
+        # Agg: 2-2. 
+        # Away goals: B scored 2 at A's home. A scored 1 at B's home. B should win.
         matches = [
-            {"home_team": "A", "away_team": "B", "home_score": 2, "away_score": 0, "played": True},
-            {"home_team": "B", "away_team": "A", "home_score": 3, "away_score": 0, "played": True}
+            {"squadra_a": "A", "squadra_b": "B", "gol_a": 1, "gol_b": 2, "risultato": RES_90}, # B wins
+            {"squadra_a": "B", "squadra_b": "A", "gol_a": 0, "gol_b": 1, "risultato": RES_90}, # A wins
         ]
-        # Both have 3 points.
-        # H2H: A won 1, B won 1 (3 pts each H2H).
-        # H2H GD: A (+2 -3 = -1), B (-2 +3 = +1). B should be first.
-        
-        self.create_matches(matches)
-        t = Tournament(self.test_file)
-        ranking = t.get_ranking()
-        
-        self.assertEqual(ranking[0]['team'], "B")
-        self.assertEqual(ranking[1]['team'], "A")
+        rank = calculate_standings(matches)
+        self.assertEqual(rank[0]["squadra"], "B")
+        self.assertEqual(rank[1]["squadra"], "A")
 
-    def test_tiebreaker_overall_gd(self):
-        """Test Overall Goal Difference when H2H is dead even."""
-        # A vs B: 1-1
-        # A vs C: 5-0 (A: 4pts, GD +5)
-        # B vs D: 1-0 (B: 4pts, GD +1)
+    def test_tiebreaker_global_diff(self):
+        # H2H is perfectly even (1-1, 1-1). 
+        # A beats C 5-0. B beats C 1-0.
+        # A should be first due to global diff.
         matches = [
-            {"home_team": "A", "away_team": "B", "home_score": 1, "away_score": 1, "played": True},
-            {"home_team": "A", "away_team": "C", "home_score": 5, "away_score": 0, "played": True},
-            {"home_team": "B", "away_team": "D", "home_score": 1, "away_score": 0, "played": True},
+            {"squadra_a": "A", "squadra_b": "B", "gol_a": 1, "gol_b": 1, "risultato": "pareggio"},
+            {"squadra_a": "B", "squadra_b": "A", "gol_a": 1, "gol_b": 1, "risultato": "pareggio"},
+            {"squadra_a": "A", "squadra_b": "C", "gol_a": 5, "gol_b": 0, "risultato": RES_90},
+            {"squadra_a": "B", "squadra_b": "C", "gol_a": 1, "gol_b": 0, "risultato": RES_90},
+            {"squadra_a": "C", "squadra_b": "D", "gol_a": 0, "gol_b": 0, "risultato": "pareggio"}, # Irrelevant
         ]
-        self.create_matches(matches)
-        t = Tournament(self.test_file)
-        ranking = t.get_ranking()
-        
-        ab_rank = [x['team'] for x in ranking if x['team'] in ['A', 'B']]
-        self.assertEqual(ab_rank, ['A', 'B'], "A should be above B due to Overall GD")
+        rank = calculate_standings(matches)
+        # A: 4 pts, Diff +5. B: 4 pts, Diff +1.
+        # H2H is even.
+        self.assertEqual(rank[0]["squadra"], "A")
+
+    def test_tiebreaker_goals_scored(self):
+        # H2H even. Diff even.
+        # A: 5-5 (Diff 0). B: 1-1 (Diff 0).
+        # A should be first.
+        matches = [
+           {"squadra_a": "A", "squadra_b": "B", "gol_a": 0, "gol_b": 0, "risultato": "pareggio"},
+           {"squadra_a": "B", "squadra_b": "A", "gol_a": 0, "gol_b": 0, "risultato": "pareggio"},
+           # A draws 5-5 with C
+           {"squadra_a": "A", "squadra_b": "C", "gol_a": 5, "gol_b": 5, "risultato": "pareggio"},
+           # B draws 1-1 with C
+           {"squadra_a": "B", "squadra_b": "C", "gol_a": 1, "gol_b": 1, "risultato": "pareggio"},
+        ]
+        rank = calculate_standings(matches)
+        # A: 2 pts, Diff 0, GF 5. B: 2 pts, Diff 0, GF 1.
+        self.assertEqual(rank[0]["squadra"], "A")
 
 if __name__ == '__main__':
     unittest.main()

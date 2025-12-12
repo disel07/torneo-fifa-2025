@@ -1,14 +1,27 @@
-# Torneo di Calcio - Classifica Automatica
+# ⚽ Torneo FIFA 2025
 
-Questo progetto gestisce la classifica di un torneo di calcio. La classifica viene calcolata automaticamente da GitHub Actions ogni volta che il file dei risultati (`matches.json`) viene aggiornato.
+Sistema di gestione classifica e calendario per il torneo di FIFA 2025.
 
-## Come funziona
-1. I risultati delle partite sono salvati in `matches.json`.
-2. Quando fai un commit e push di modifiche a `matches.json`, parte un'automazione.
-3. Lo script `tournament.py` calcola la nuova classifica.
-4. Il file `classifica.json` viene aggiornato e committato automaticamente nel repository.
-5. La pagina web (`index.html`) legge `classifica.json` e mostra la classifica aggiornata (tramite fetch JS o caricamento statico nel workflow, a seconda della configurazione).
+## 🚀 Caratteristiche
+- **Calcolo automatico**: Script Python che legge i risultati e genera la classifica.
+- **Logica Tiebreaker**:
+    1. Punti
+    2. Scontri diretti (diff. reti H2H, gol fuori casa H2H)
+    3. Differenza reti totale
+    4. Gol fatti totali
+- **Dashboard Cyberpunk**: Interfaccia web moderna Dark/Neon aggiornata in tempo reale.
+- **Automazione**: GitHub Actions aggiorna la classifica ad ogni push.
 
-## Link Utili
-- **Sito Web Classifica**: [Inserisci qui il link di GitHub Pages una volta attivo]
-- **Risultati (JSON)**: `matches.json`
+## 📂 Struttura
+- `matches.json`: Database delle partite.
+- `classifica.json`: Output generato (NON modificare manualmente).
+- `tournament.py`: Motore logico.
+- `index.html`: Dashboard Frontend.
+
+## 🛠 Installazione
+1. Clona la repository.
+2. Assicurati di avere Python 3.9+.
+3. Apri `index.html` nel browser.
+
+## 📝 Utilizzo
+Vedi [GUIDA_UTENTE.md](GUIDA_UTENTE.md) per istruzioni dettagliate su come inserire i risultati.
