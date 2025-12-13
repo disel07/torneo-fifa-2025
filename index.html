@@ -134,22 +134,20 @@
             box-shadow: 0 0 20px var(--accent-gold);
         }
 
-        h1 {
-            font-size: 3rem;
-            /* Compact size */
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: -0.03em;
-            line-height: 1;
-            margin-bottom: 1rem;
+        /* Title Graphic */
+        .title-graphic {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.4));
+            transition: transform 0.3s;
+        }
 
-            /* Cinematic Gold Gradient */
-            background: linear-gradient(110deg, #854d0e 0%, #facc15 20%, #ffffff 25%, #facc15 30%, #854d0e 45%, #facc15 80%, #854d0e 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shimmerTitle 4s linear infinite;
-            filter: drop-shadow(0 0 30px rgba(234, 179, 8, 0.6));
+        .title-graphic:hover {
+            transform: scale(1.02);
+            filter: drop-shadow(0 0 30px rgba(251, 191, 36, 0.6));
         }
 
         /* Teams Section */
@@ -505,7 +503,12 @@
         style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; pointer-events:none;"></canvas>
     <div class="container">
         <header>
-            <h1>ULTIMO TORNEO FIFA<br>5B informatica 2025/2026</h1>
+            <img src="assets/title_banner.png" alt="Ultimo Torneo FIFA - 5B Informatica"
+                class="title-graphic fade-in-el">
+            <div class="subtitle fade-in-el"
+                style="animation-delay: 0.1s; color: var(--accent-gold); text-transform:uppercase; letter-spacing:0.2em; font-size:0.9rem; margin-top:0.5rem; font-weight:700;">
+                5B Informatica 2025/2026
+            </div>
         </header>
 
         <section>
