@@ -229,6 +229,38 @@
             color: var(--text-muted);
         }
 
+        /* First Place Highlight */
+        tbody tr:first-child td {
+            background: linear-gradient(90deg, rgba(251, 191, 36, 0.1), transparent);
+            border-top: 1px solid var(--accent-gold);
+            border-bottom: 1px solid var(--accent-gold);
+        }
+
+        tbody tr:first-child td:first-child {
+            border-left: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            font-weight: 800;
+        }
+
+        tbody tr:first-child td:last-child {
+            /* Sticky column fix */
+            border-left: 1px solid var(--accent-gold);
+            background: var(--bg-card);
+            /* Keep opaque for sticky */
+            border-right: 1px solid var(--accent-gold);
+            box-shadow: -4px 0 10px rgba(251, 191, 36, 0.1);
+        }
+
+        tbody tr:first-child:hover td {
+            background: linear-gradient(90deg, rgba(251, 191, 36, 0.15), transparent);
+        }
+
+        .rank-1-icon::before {
+            content: '👑';
+            margin-right: 8px;
+            font-size: 1.1rem;
+        }
+
         /* Matches Grid */
         .matches-grid {
             display: grid;
@@ -497,8 +529,13 @@
                 const diffClass = team.differenza_reti > 0 ? 'diff-pos' : (team.differenza_reti < 0 ? 'diff-neg' : 'diff-neu');
                 const diffSign = team.differenza_reti > 0 ? '+' : '';
 
+                let teamNameHtml = `${index + 1}. ${team.squadra}`;
+                if (index === 0) {
+                    teamNameHtml = `<span class="rank-1-icon"></span>${team.squadra}`;
+                }
+
                 tr.innerHTML = `
-                    <td>${index + 1}. ${team.squadra}</td>
+                    <td>${teamNameHtml}</td>
                     <td>${team.giornate}</td>
                     <td>${team.vittorie || 0}</td>
                     <td>${team.vittorie_rig || 0}</td>
