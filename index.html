@@ -137,17 +137,22 @@
         /* Title Graphic */
         .title-graphic {
             width: 100%;
-            max-width: 600px;
+            max-width: 450px;
+            /* Smaller as requested */
             height: auto;
             display: block;
             margin: 0 auto;
-            filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.4));
-            transition: transform 0.3s;
+            filter: drop-shadow(0 0 25px rgba(251, 191, 36, 0.5));
+            /* Stronger glow */
+            mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 85%, rgba(0, 0, 0, 0) 100%);
+            /* Fade out bottom slightly */
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 85%, rgba(0, 0, 0, 0) 100%);
+            transition: transform 0.5s ease-out;
         }
 
         .title-graphic:hover {
-            transform: scale(1.02);
-            filter: drop-shadow(0 0 30px rgba(251, 191, 36, 0.6));
+            transform: scale(1.05) translateY(-5px);
+            filter: drop-shadow(0 0 40px rgba(251, 191, 36, 0.8));
         }
 
         /* Teams Section */
