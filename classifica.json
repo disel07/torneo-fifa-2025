@@ -27,7 +27,7 @@
             "posizione": 2
         },
         {
-            "squadra": "Alessandro (Man City)",
+            "squadra": "Diell (Inter)",
             "giornate": 0,
             "vittorie": 0,
             "vittorie_rig": 0,
@@ -40,7 +40,7 @@
             "posizione": 3
         },
         {
-            "squadra": "Diell (Inter)",
+            "squadra": "Alessandro (Man City)",
             "giornate": 0,
             "vittorie": 0,
             "vittorie_rig": 0,
@@ -66,5 +66,5 @@
             "posizione": 5
         }
     ],
-    "ultimo_aggiornamento": "2025-12-13 16:30:28"
+    "ultimo_aggiornamento": "2025-12-13 17:43:16"
 }
