@@ -1,54 +1,44 @@
-# Guida Utente - Torneo FIFA 2025
+# 📖 Guida Semplice - Torneo FIFA 2025
 
-Questa guida spiega come gestire il torneo e aggiornare i risultati.
+Ecco come gestire il tuo torneo in pochi passi.
 
-## 1. Inserire un nuovo risultato
-Tutti i dati sono salvati in `matches.json`.
+## 1. Aggiornare i Risultati ⚽
+Tutti i dati delle partite sono nel file `matches.json`.
 
-1. Apri `matches.json` con un editor di testo o IDE.
-2. Trova la partita da aggiornare (cerca per ID o nomi squadre).
-3. Modifica i campi:
-   - `gol_a`: Gol squadra A (numerico)
-   - `gol_b`: Gol squadra B (numerico)
-   - `risultato`:
-     - `"90"`: Vittoria nei 90 minuti.
-     - `"pareggio"`: Pareggio (non previsto dal regolamento ma gestito).
-     - `"rigori_a"`: Squadra A vince ai rigori (2 pt vs 1 pt).
-     - `"rigori_b"`: Squadra B vince ai rigori (1 pt vs 2 pt).
+1.  Apri il file `matches.json` (basta un doppioclick o tasto destro -> Apri con Blocco Note/TextEditor).
+2.  Cerca la partita che hanno appena giocato (es. *Guido vs Filippo*).
+3.  Modifica solo questi 3 numeri:
+    *   `"gol_a"`: I gol della prima squadra.
+    *   `"gol_b"`: I gol della seconda squadra.
+    *   `"risultato"`: Scrivi chi ha vinto:
+        *   `"90"` -> Se la partita è finita ai tempi regolamentari.
+        *   `"rigori_a"` -> Se la prima squadra ha vinto ai rigori.
+        *   `"rigori_b"` -> Se la seconda squadra ha vinto ai rigori.
 
-**Esempio:**
+**Esempio Pratico:**
+Se Guido vince 3 a 2 contro Filippo ai tempi regolamentari:
 ```json
-{
-    "id": 1,
-    "giornata": 1,
-    "squadra_a": "Guido (Real Madrid)",
-    "squadra_b": "Filippo (PSG)",
-    "gol_a": 3,
-    "gol_b": 3,
-    "risultato": "rigori_a"
-}
+"gol_a": 3,
+"gol_b": 2,
+"risultato": "90"
 ```
 
-## 2. Aggiornare la classifica (Locale)
-Se vuoi vedere la classifica aggiornata sul tuo computer:
+## 2. Calcolare la Classifica 📈
+Dopo aver salvato `matches.json`:
 
-1. Apri il terminale nella cartella del progetto.
-2. Esegui:
-   ```bash
-   python3 tournament.py
-   ```
-3. Il file `classifica.json` verrà aggiornato.
-4. Ricarica `index.html` nel browser.
+1.  Apri la cartella del progetto.
+2.  Fai doppio click sul file `run.sh` (o esegui `python3 tournament.py` dal terminale se preferisci).
+3.  Questo aggiornerà automaticamente la classifica e il sito.
 
-## 3. Aggiornare il sito online (GitHub)
-Se il progetto è su GitHub:
+## 3. Vedere la Classifica 💻
+Basta aprire il file `index.html` con il tuo browser (Chrome, Safari, Edge).
+Vedrai la classifica aggiornata, le statistiche e le prossime partite.
 
-1. Fai le modifiche a `matches.json`.
-2. Esegui i comandi git:
-   ```bash
-   git add matches.json
-   git commit -m "Aggiornato risultato giornata X"
-   git push
-   ```
-3. Aspetta circa 1-2 minuti.
-4. Visita il sito pubblicato su GitHub Pages. La classifica si aggiornerà automaticamente grazie alle GitHub Actions.
+## 🏆 Playoff (Automatici)
+Non devi fare nulla!
+Quando avrai inserito **tutti i risultati** delle 20 partite di campionato:
+1.  Il sistema creerà **automaticamente** le partite delle Semifinali in fondo alla lista delle partite.
+2.  Giocate le semifinali e inserite i risultati come sempre.
+3.  Il sistema creerà automaticamente la Finale Playoff e poi la Finalissima.
+
+Divertitevi! 🎮

@@ -1,0 +1,15 @@
+Sono Diell. Sto spostando il progetto "Torneo FIFA 2025" su questo computer.
+
+Ecco il contesto attuale:
+1. **Repository**: https://github.com/disel07/torneo-fifa-2025.git
+2. **Stato**: Il progetto è attivo e funzionante.
+   - `matches.json`: Contiene il calendario.
+   - `tournament.py`: Calcola la classifica (Python).
+   - `index.html`: Dashboard Cyberpunk live su GitHub Pages.
+   - Workflow GitHub: Aggiorna automaticamente la classifica online al push.
+3. **Obiettivo**: Voglio continuare a gestire il torneo da qui.
+
+Per favore:
+1. Clona la repository nella cartella di lavoro se non c'è.
+2. Leggi `memory_log.md` per capire i dettagli tecnici.
+3. Dimmi quando sei pronto per inserire nuovi risultati.

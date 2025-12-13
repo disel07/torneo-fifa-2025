@@ -314,7 +314,10 @@
                 const matchesData = await matchesRes.json();
 
                 renderStandings(standingsData.classifica);
-                renderMatches(matchesData.matches);
+                
+                // Combine league matches and playoffs
+                const allMatches = [...(matchesData.matches || []), ...(matchesData.playoffs || [])];
+                renderMatches(allMatches);
 
                 document.getElementById('last-update').textContent = 'Ultimo aggiornamento: ' + (standingsData.ultimo_aggiornamento || 'N/A');
 
@@ -365,7 +368,19 @@
             // Simple logic: show all for now, maybe filtered in V2
             // Just showing latest/upcoming
 
-            matches.sort((a, b) => a.id - b.id);
+            // Sort: Numbers first, then Strings (Playoffs)
+            matches.sort((a, b) => {
+                const idA = a.id;
+                const idB = b.id;
+                const isNumA = typeof idA === 'number';
+                const isNumB = typeof idB === 'number';
+
+                if (isNumA && isNumB) return idA - idB;
+                if (isNumA) return -1;
+                if (isNumB) return 1;
+                // Both strings
+                return String(idA).localeCompare(String(idB));
+            });
 
             matches.forEach(m => {
                 const card = document.createElement('div');
