@@ -22,6 +22,10 @@ def calculate_standings(matches):
     teams = defaultdict(lambda: {
         "squadra": "",
         "giornate": 0,
+        "vittorie": 0,
+        "vittorie_rig": 0,
+        "sconfitte_rig": 0,
+        "sconfitte": 0,
         "gol_fatti": 0,
         "gol_subiti": 0,
         "differenza_reti": 0,
@@ -71,27 +75,42 @@ def calculate_standings(matches):
             if ga > gb:
                 pts_a = 3
                 pts_b = 0
+                teams[team_a]["vittorie"] += 1
+                teams[team_b]["sconfitte"] += 1
             elif gb > ga:
                 pts_a = 0
                 pts_b = 3
+                teams[team_b]["vittorie"] += 1
+                teams[team_a]["sconfitte"] += 1
             else:
                  # Should not happen with "90" unless draw which is not allowed usually without penalties info
                  # But if result is "pareggio", treat as 1-1
                  pts_a = 1
                  pts_b = 1
+                 # Count as draw? Logic currently has no draw field, usually means penalties needed
         elif res == RES_RIG_A:
             pts_a = 2
             pts_b = 1
+            teams[team_a]["vittorie_rig"] += 1
+            teams[team_b]["sconfitte_rig"] += 1
         elif res == RES_RIG_B:
             pts_a = 1
             pts_b = 2
+            teams[team_b]["vittorie_rig"] += 1
+            teams[team_a]["sconfitte_rig"] += 1
         elif res == "pareggio":
              pts_a = 1
              pts_b = 1
         else:
             # Fallback for simple wins marked as "90" but maybe user just put scores
-            if ga > gb: pts_a = 3; pts_b = 0
-            elif gb > ga: pts_a = 0; pts_b = 3
+            if ga > gb: 
+                pts_a = 3; pts_b = 0
+                teams[team_a]["vittorie"] += 1
+                teams[team_b]["sconfitte"] += 1
+            elif gb > ga: 
+                pts_a = 0; pts_b = 3
+                teams[team_b]["vittorie"] += 1
+                teams[team_a]["sconfitte"] += 1
             else: pts_a = 1; pts_b = 1
 
         teams[team_a]["punti"] += pts_a
