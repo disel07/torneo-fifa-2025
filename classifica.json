@@ -10,7 +10,7 @@
             "posizione": 1
         },
         {
-            "squadra": "Alessandro (Man City)",
+            "squadra": "Diell (Inter)",
             "giornate": 0,
             "gol_fatti": 0,
             "gol_subiti": 0,
@@ -19,7 +19,7 @@
             "posizione": 2
         },
         {
-            "squadra": "Diell (Inter)",
+            "squadra": "Giuseppe (Bayern)",
             "giornate": 0,
             "gol_fatti": 0,
             "gol_subiti": 0,
@@ -28,7 +28,7 @@
             "posizione": 3
         },
         {
-            "squadra": "Giuseppe (Bayern)",
+            "squadra": "Alessandro (Man City)",
             "giornate": 0,
             "gol_fatti": 0,
             "gol_subiti": 0,
@@ -46,5 +46,5 @@
             "posizione": 5
         }
     ],
-    "ultimo_aggiornamento": "2025-12-13 12:58:57"
+    "ultimo_aggiornamento": "2025-12-13 12:05:49"
 }
