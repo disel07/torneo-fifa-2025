@@ -136,23 +136,39 @@
 
         /* Title Graphic */
         .title-graphic {
-            width: 100%;
-            max-width: 450px;
-            /* Smaller as requested */
-            height: auto;
+            width: 90%;
+            max-width: 800px;
+            /* Wider allowable width */
+            max-height: 120px;
+            /* Constrain height to keep it "smaller" vertically */
+            object-fit: contain;
             display: block;
-            margin: 0 auto;
+            margin: 0 auto 1rem;
             filter: drop-shadow(0 0 25px rgba(251, 191, 36, 0.5));
-            /* Stronger glow */
-            mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 85%, rgba(0, 0, 0, 0) 100%);
-            /* Fade out bottom slightly */
-            -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 85%, rgba(0, 0, 0, 0) 100%);
+            mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0) 100%);
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0) 100%);
             transition: transform 0.5s ease-out;
         }
 
         .title-graphic:hover {
-            transform: scale(1.05) translateY(-5px);
+            transform: scale(1.02) translateY(-2px);
             filter: drop-shadow(0 0 40px rgba(251, 191, 36, 0.8));
+        }
+
+        .subtitle-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 50px;
+            color: var(--accent-gold);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.1);
+            animation-delay: 0.2s;
         }
 
         /* Teams Section */
@@ -508,12 +524,12 @@
         style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; pointer-events:none;"></canvas>
     <div class="container">
         <header>
-            <img src="assets/title_banner.png" alt="Ultimo Torneo FIFA - 5B Informatica"
-                class="title-graphic fade-in-el">
-            <div class="subtitle fade-in-el"
-                style="animation-delay: 0.1s; color: var(--accent-gold); text-transform:uppercase; letter-spacing:0.2em; font-size:0.9rem; margin-top:0.5rem; font-weight:700;">
-                5B Informatica 2025/2026
-            </div>
+            <header>
+                <img src="assets/title_banner_wide.png" alt="Ultimo Torneo FIFA" class="title-graphic fade-in-el">
+                <div class="subtitle-badge fade-in-el">
+                    5B Informatica 2025/2026
+                </div>
+            </header>
         </header>
 
         <section>
