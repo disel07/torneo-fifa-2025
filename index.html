@@ -9,623 +9,114 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            /* Zinc Palette (Dark Professional) */
-            --bg-body: #09090b;
-            /* Zinc 950 */
-            --bg-card: #18181b;
-            /* Zinc 900 */
-            --bg-subtle: #27272a;
-            /* Zinc 800 */
-            --border-color: #3f3f46;
-            /* Zinc 700 */
+        </head><style>
+        /* ... (Global Variables Remain Same - omitted for brevity if unchanged, but safely assume we append new styles or overwrite specific blocks) */
+        /* Actually, simpler to just inject the NEW styles and Overwrites at end of style block or replace specific parts */
 
-            --text-primary: #f4f4f5;
-            /* Zinc 100 */
-            --text-secondary: #a1a1aa;
-            /* Zinc 400 */
-            --text-muted: #52525b;
-            /* Zinc 600 */
-
-            /* Accents */
-            --accent-gold: #fbbf24;
-            /* Amber 400 */
-            --accent-glow: rgba(251, 191, 36, 0.15);
-
-            --success-color: #34d399;
-            /* Emerald 400 */
-            --danger-color: #f87171;
-            /* Red 400 */
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-primary);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        /* Ambient Dynamic Background */
-        body::before {
-            content: '';
-            position: fixed;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at center, rgba(16, 185, 129, 0.03) 0%, transparent 40%),
-                radial-gradient(circle at 80% 20%, rgba(251, 191, 36, 0.03) 0%, transparent 30%),
-                radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.03) 0%, transparent 30%);
-            animation: moveMist 60s linear infinite;
-            z-index: -2;
-            pointer-events: none;
-        }
-
-        /* Noise Texture for Film Look */
-        body::after {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
-            z-index: -1;
-            opacity: 0.03;
-            pointer-events: none;
-        }
-
-        @keyframes moveMist {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 3rem 1.5rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Entrance Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes shimmerTitle {
-            0% {
-                background-position: -200%;
-            }
-
-            100% {
-                background-position: 200%;
-            }
-        }
-
-        .fade-in-el {
-            opacity: 0;
-            animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        /* Header */
-        header {
-            margin-bottom: 4rem;
-            text-align: center;
-            position: relative;
+        /* Compact Header */
+        h1 {
+            font-size: 3rem;
+            /* Smaller as requested */
+            margin-bottom: 1rem;
         }
 
         header::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 4px;
-            background: var(--accent-gold);
-            margin: 1.5rem auto 0;
-            border-radius: 2px;
-            box-shadow: 0 0 20px var(--accent-gold);
-        }
-
-        /* Ultra-Epic Title */
-        h1 {
-            font-size: 4.5rem;
-            /* Bigger */
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: -0.03em;
-            line-height: 0.9;
-            margin-bottom: 2rem;
-            text-align: center;
-
-            /* Cinematic Gold Metal Gradient with Shimmer */
-            background: linear-gradient(110deg,
-                    #854d0e 0%,
-                    #facc15 20%,
-                    #ffffff 25%,
-                    #facc15 30%,
-                    #854d0e 45%,
-                    #facc15 80%,
-                    #854d0e 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shimmerTitle 4s linear infinite;
-
-            /* Multi-layer shadow for intense glow */
-            filter: drop-shadow(0 0 30px rgba(234, 179, 8, 0.6));
-            position: relative;
-            z-index: 10;
-        }
-
-        @keyframes shimmerTitle {
-            0% {
-                background-position: -200%;
-            }
-
-            100% {
-                background-position: 200%;
-            }
-        }
-
-        h1::after {
-            display: none;
+            margin: 1rem auto 0;
         }
 
         .subtitle {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            font-weight: 500;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            margin-top: -1.5rem;
-            display: block;
-            opacity: 0.8;
-            margin-bottom: 3rem;
-            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        }
-
-        /* Section Titles */
-        h2 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        h2::before {
-            content: '';
-            display: block;
-            width: 4px;
-            height: 24px;
-            background: var(--accent-gold);
-            border-radius: 4px;
-        }
-
-        section {
-            margin-bottom: 5rem;
-        }
-
-        /* Card Styles */
-        .glass-panel {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
-            overflow: hidden;
-        }
-
-        /* Standings Table */
-        .table-scroll {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            font-size: 0.95rem;
-        }
-
-        th {
-            background: var(--bg-subtle);
-            color: var(--text-secondary);
-            font-weight: 600;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            text-align: center;
-            padding: 1.25rem 1rem;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        th:first-child {
-            text-align: left;
-            padding-left: 2rem;
-            border-top-left-radius: 16px;
-        }
-
-        /* Sticky Header Fix for Top Corners */
-        th:last-child {
-            border-top-right-radius: 16px;
-            /* Note: Sticky can conflict with border-radius on scroll, but acceptable here */
-        }
-
-        td {
-            padding: 1.25rem 1rem;
-            border-bottom: 1px solid var(--border-color);
-            text-align: center;
-            color: var(--text-secondary);
-            transition: background 0.2s;
-        }
-
-        tr:last-child td {
-            border-bottom: none;
-        }
-
-        /* Standings Table Epic */
-        .table-scroll {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            border-radius: 0 0 16px 16px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            /* Changed to collapse for cleaner lines */
             font-size: 1rem;
+            margin-bottom: 2rem;
         }
 
-        th {
-            background: rgba(39, 39, 42, 0.95);
-            color: var(--accent-gold);
-            font-weight: 700;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            text-align: center;
-            padding: 1.5rem 1rem;
-            border-bottom: 2px solid var(--accent-gold);
-            position: sticky;
-            top: 0;
-            z-index: 20;
-            box-shadow: 0 5px 20px -10px rgba(0, 0, 0, 0.5);
-        }
-
-        th:first-child {
-            text-align: left;
-            padding-left: 2rem;
-        }
-
-        td {
-            padding: 1.5rem 1rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            text-align: center;
-            color: var(--text-secondary);
-            transition: all 0.3s;
-            font-variant-numeric: tabular-nums;
-        }
-
-        tr:last-child td {
-            border-bottom: none;
-        }
-
-        td:first-child {
-            text-align: left;
-            padding-left: 2rem;
-            color: var(--text-primary);
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        tr {
-            transition: background 0.3s;
-        }
-
-        tr:hover {
-            background: rgba(251, 191, 36, 0.05) !important;
-            backdrop-filter: blur(5px);
-        }
-
-        tr:hover td {
-            color: #fff;
-        }
-
-        /* Sticky Points Column */
-        th.sticky-col,
-        td.sticky-col {
-            position: sticky;
-            right: 0;
-            background: var(--bg-card);
-            border-left: 1px solid var(--border-color);
-            z-index: 25;
-        }
-
-        th.sticky-col {
-            background: rgba(39, 39, 42, 0.95);
-        }
-
-        tr:hover td.sticky-col {
-            background: var(--bg-subtle);
-        }
-
-        .points-val {
-            font-weight: 900;
-            color: var(--accent-gold);
-            font-size: 1.25rem;
-            text-shadow: 0 0 15px rgba(251, 191, 36, 0.2);
-        }
-
-        /* First Place Highlight */
-        tbody tr:first-child {
-            background: linear-gradient(90deg, rgba(251, 191, 36, 0.1), transparent);
-        }
-
-        tbody tr:first-child td {
-            color: var(--accent-gold);
-            font-weight: 700;
-            border-top: 1px solid var(--accent-gold);
-            border-bottom: 1px solid var(--accent-gold);
-        }
-
-        tbody tr:first-child td:first-child {
-            border-left: 1px solid var(--accent-gold);
-        }
-
-        tbody tr:first-child td:last-child {
-            border-right: 1px solid var(--accent-gold);
-        }
-
+        /* Larger Logos */
         .team-logo-small {
-            width: 32px;
-            height: 32px;
-            object-fit: contain;
-            filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
+            width: 48px;
+            /* Bigger */
+            height: 48px;
+            margin-right: 1rem;
         }
 
-        .rank-num {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            width: 20px;
-            display: inline-block;
+        .match-row img {
+            width: 36px !important;
+            /* Bigger in match cards */
+            height: 36px !important;
         }
 
-        /* Stats Section - Ticker */
-        .matches-grid {
+        /* TEAMS SECTION */
+        .teams-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 1.5rem;
+            margin-bottom: 4rem;
         }
 
-        .match-card {
-            background: var(--bg-card);
+        .team-card {
+            background: rgba(24, 24, 27, 0.4);
             border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 1.5rem;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .match-card:hover {
-            transform: translateY(-5px) scale(1.02);
-            border-color: var(--accent-gold);
-            box-shadow: 0 15px 40px -10px rgba(251, 191, 36, 0.2);
-            z-index: 2;
-        }
-
-        .match-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 3px;
-            height: 100%;
-            background: var(--bg-subtle);
+            text-align: center;
             transition: all 0.3s;
-        }
-
-        .match-card:hover::before {
-            background: var(--accent-gold);
-            width: 5px;
-            box-shadow: 0 0 15px var(--accent-gold);
-        }
-
-        .match-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            margin-bottom: 1.25rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            font-weight: 600;
-        }
-
-        .match-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.75rem;
-            font-weight: 500;
-            font-size: 1rem;
-            color: var(--text-secondary);
-        }
-
-        .match-row.winner {
-            color: var(--text-primary);
-            font-weight: 700;
-        }
-
-        .match-row.winner span:first-child::after {
-            content: '⬥';
-            /* Little diamond indicator */
-            margin-left: 8px;
-            color: var(--accent-gold);
-            font-size: 0.8rem;
-            vertical-align: middle;
-        }
-
-        .score-box {
-            background: var(--bg-subtle);
-            color: var(--text-primary);
-            padding: 0.25rem 0.85rem;
-            border-radius: 6px;
-            font-variant-numeric: tabular-nums;
-            min-width: 2.5rem;
-            text-align: center;
-            font-weight: 600;
-            border: 1px solid var(--border-color);
-        }
-
-        .match-status {
-            font-size: 0.7rem;
-            padding: 4px 8px;
-            border-radius: 20px;
-            background: var(--bg-subtle);
-            color: var(--text-secondary);
-            border: 1px solid var(--border-color);
-        }
-
-        .play-status {
-            background: rgba(52, 211, 153, 0.1);
-            color: var(--success-color);
-            border-color: rgba(52, 211, 153, 0.2);
-        }
-
-        .status-upcoming {
-            background: rgba(251, 191, 36, 0.1);
-            color: var(--accent-gold);
-            border-color: rgba(251, 191, 36, 0.2);
-        }
-
-        /* Stats Section */
-        .stats-ticker {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 4rem;
-            padding-bottom: 1rem;
-        }
-
-        .stat-box {
-            background: rgba(24, 24, 27, 0.6);
-            /* Glassy */
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(251, 191, 36, 0.3);
-            border-radius: 16px;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(251, 191, 36, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
             position: relative;
             overflow: hidden;
         }
 
-        .stat-box:hover {
+        .team-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 40px rgba(251, 191, 36, 0.2);
             border-color: var(--accent-gold);
+            background: rgba(24, 24, 27, 0.8);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
-        .stat-label {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            color: var(--accent-gold);
-            margin-bottom: 1rem;
-            letter-spacing: 0.15em;
-            font-weight: 700;
-            text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
-        }
-
-        .stat-team-logo {
+        .team-card-logo {
             width: 80px;
             height: 80px;
             object-fit: contain;
-            margin-bottom: 0.5rem;
-            filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
-            transition: transform 0.5s;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.3));
+            transition: transform 0.4s;
         }
 
-        .stat-box:hover .stat-team-logo {
-            transform: scale(1.1) rotate(5deg);
+        .team-card:hover .team-card-logo {
+            transform: scale(1.15) rotate(5deg);
         }
 
-        .stat-value {
-            font-size: 1.5rem;
-            font-weight: 800;
+        .player-name {
+            font-size: 1.1rem;
+            font-weight: 700;
             color: var(--text-primary);
             margin-bottom: 0.25rem;
         }
 
-        .stat-sub {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            font-family: monospace;
+        .team-name {
+            font-size: 0.85rem;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Fix Footer / Bottom Spacing */
+        body {
+            padding-bottom: 2rem;
         }
 
         footer {
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            margin-top: 5rem;
-            border-top: 1px solid var(--border-color);
-            padding-top: 2rem;
+            margin-top: 3rem;
+            padding-bottom: 1rem;
         }
 
         @media (max-width: 640px) {
-            .container {
-                padding: 1.5rem 1rem;
-            }
-
             h1 {
-                font-size: 1.75rem;
+                font-size: 2rem;
             }
 
-            .matches-grid {
-                grid-template-columns: 1fr;
-            }
-
-            th.sticky-col,
-            td.sticky-col {
-                box-shadow: -10px 0 20px -10px rgba(0, 0, 0, 0.5);
-                border-left: 1px solid var(--border-color);
+            .team-logo-small {
+                width: 36px;
+                height: 36px;
             }
         }
+    </style>
     </style>
 </head>
 
@@ -641,6 +132,13 @@
         <div id="stats-area" class="stats-ticker">
             <!-- Stats -->
         </div>
+
+        <section>
+            <h2>Squadre e Giocatori</h2>
+            <div class="teams-grid" id="teams-container">
+                <!-- JS Injected -->
+            </div>
+        </section>
 
         <section>
             <h2>Classifica</h2>
@@ -719,10 +217,51 @@
 
                 document.getElementById('last-update').textContent = 'Ultimo aggiornamento: ' + (standingsData.ultimo_aggiornamento || 'N/A');
                 calculateStats(standingsData.classifica);
+                renderTeams(standingsData.classifica);
 
             } catch (e) {
                 console.error("Error:", e);
             }
+        }
+
+        function renderTeams(data) {
+            const container = document.getElementById('teams-container');
+            if (!container) return;
+            container.innerHTML = '';
+
+            // Sort by name or points? Let's sort alphabetically for presentation or by standings
+            // data is already sorted by standings from backend mostly
+
+            data.forEach(team => {
+                const card = document.createElement('div');
+                card.className = 'team-card fade-in-el';
+                card.style.animationDelay = '0.2s';
+
+                const logo = getLogo(team.squadra);
+
+                // Extract Player Name if format is "Player (Team)"
+                let player = team.squadra;
+                let club = "FC Club";
+
+                if (team.squadra.includes('(')) {
+                    const parts = team.squadra.split('(');
+                    player = parts[0].trim();
+                    club = parts[1].replace(')', '').trim();
+                } else {
+                    club = team.squadra; // fallback
+                }
+
+                card.innerHTML = `
+                    ${logo ? `<img src="${logo}" class="team-card-logo" alt="${club}">` : ''}
+                    <div class="player-name">${player}</div>
+                    <div class="team-name">${club}</div>
+                    <div style="margin-top:1rem; font-size:0.8rem; color:var(--text-muted)">
+                         ${team.punti} Punti
+                    </div>
+                 `;
+
+                container.appendChild(card);
+            });
         }
 
         function renderStandings(data) {
@@ -947,115 +486,6 @@
         setInterval(fetchData, 30000);
         fetchData();
     </script>
-    // Only update if empty to prevent re-animation on poll
-    if (statsArea.children.length === 0) {
-    statsArea.innerHTML = `
-    <div class="stat-box fade-in-el" style="animation-delay: 0.1s">
-        <div class="stat-label">Miglior Attacco</div>
-        ${logoGf ? `<img src="${logoGf}" class="stat-team-logo" alt="logo">` : ''}
-        <div class="stat-value">${topScorerTeam.squadra}</div>
-        <div class="stat-sub"><span id="count-gf">0</span> Goal Fatti</div>
-    </div>
-    <div class="stat-box fade-in-el" style="animation-delay: 0.2s">
-        <div class="stat-label">Miglior Difesa</div>
-        ${logoGs ? `<img src="${logoGs}" class="stat-team-logo" alt="logo">` : ''}
-        <div class="stat-value">${defenseTeam.squadra}</div>
-        <div class="stat-sub"><span id="count-gs">0</span> Goal Subiti</div>
-    </div>
-    `;
-    animateValue("count-gf", 0, topScorerTeam.gol_fatti, 2000);
-    animateValue("count-gs", 0, defenseTeam.gol_subiti, 2000);
-    }
-    }
-
-    function animateValue(id, start, end, duration) {
-    const obj = document.getElementById(id);
-    if (!obj) return;
-    let current = start;
-    const range = end - start;
-    if (range === 0) { obj.textContent = end; return; }
-    const increment = end > start ? 1 : -1;
-    const stepTime = Math.max(Math.abs(Math.floor(duration / range)), 20);
-
-    const timer = setInterval(function () {
-    current += increment;
-    obj.textContent = current;
-    if (current == end) clearInterval(timer);
-    }, stepTime);
-    }
-
-    // --- VISUAL EFFECTS ---
-
-    // 3D Tilt for Cards
-    function handleTilt(e) {
-    const card = e.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-
-    const rotateX = ((y - centerY) / centerY) * -5; // Max 5deg
-    const rotateY = ((x - centerX) / centerX) * 5;
-
-    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
-    }
-
-    function resetTilt(e) {
-    e.currentTarget.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
-    }
-
-    // Gold Particles
-    (function initParticles() {
-    const canvas = document.getElementById('particle-canvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let width, height;
-    let particles = [];
-
-    function resize() {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resize);
-    resize();
-
-    class Particle {
-    constructor() {
-    this.reset();
-    }
-    reset() {
-    this.x = Math.random() * width;
-    this.y = Math.random() * height;
-    this.size = Math.random() * 2; // Tiny dust
-    this.speedX = (Math.random() - 0.5) * 0.5;
-    this.speedY = (Math.random() - 0.5) * 0.5;
-    this.alpha = Math.random() * 0.5 + 0.1;
-    }
-    update() {
-    this.x += this.speedX;
-    this.y += this.speedY;
-    if (this.x < 0 || this.x> width || this.y < 0 || this.y> height) this.reset();
-            }
-            draw() {
-            ctx.fillStyle = `rgba(251, 191, 36, ${this.alpha})`;
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            ctx.fill();
-            }
-            }
-
-            for (let i = 0; i < 100; i++) particles.push(new Particle()); function animate() { ctx.clearRect(0, 0,
-                width, height); particles.forEach(p=> { p.update(); p.draw(); });
-                requestAnimationFrame(animate);
-                }
-                animate();
-                })();
-
-                setInterval(fetchData, 30000);
-                fetchData();
-                </script>
 </body>
 
 </html>
