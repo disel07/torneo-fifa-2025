@@ -631,6 +631,8 @@
 
 <body>
 
+    <canvas id="particle-canvas"
+        style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; pointer-events:none;"></canvas>
     <div class="container">
         <header>
             <h1>ULTIMO TORNEO FIFA<br>5B informatica 2025/2026</h1>
@@ -680,6 +682,23 @@
     </div>
 
     <script>
+        // --- CONFIG & ASSETS ---
+        const logoMap = {
+            "Real Madrid": "assets/logos/real_madrid.png",
+            "PSG": "assets/logos/psg.png",
+            "Man City": "assets/logos/man_city.png",
+            "Bayern": "assets/logos/bayern.png",
+            "Inter": "assets/logos/inter.png"
+        };
+
+        function getLogo(teamName) {
+            for (const key in logoMap) {
+                if (teamName.includes(key)) return logoMap[key];
+            }
+            return "";
+        }
+
+        // --- MAIN LOGIC ---
         async function fetchData() {
             try {
                 const t = new Date().getTime();
@@ -713,18 +732,21 @@
             data.forEach((team, index) => {
                 const tr = document.createElement('tr');
                 tr.className = 'fade-in-el';
-                tr.style.animationDelay = `${index * 0.05}s`; // Stagger effect
+                tr.style.animationDelay = `${index * 0.05}s`;
 
                 const diffClass = team.differenza_reti > 0 ? 'diff-pos' : (team.differenza_reti < 0 ? 'diff-neg' : 'diff-neu');
                 const diffSign = team.differenza_reti > 0 ? '+' : '';
+                const logo = getLogo(team.squadra);
 
-                let teamNameHtml = `${index + 1}. ${team.squadra}`;
-                if (index === 0) {
-                    teamNameHtml = `<span class="rank-1-icon"></span>${team.squadra}`;
-                }
+                let rankContent = `<span class="rank-num">${index + 1}</span>`;
+                if (index === 0) rankContent = `<span class="rank-num">👑</span>`;
 
                 tr.innerHTML = `
-                    <td>${teamNameHtml}</td>
+                    <td>
+                        ${rankContent}
+                        ${logo ? `<img src="${logo}" class="team-logo-small" alt="">` : ''}
+                        <span>${team.squadra}</span>
+                    </td>
                     <td>${team.giornate}</td>
                     <td>${team.vittorie || 0}</td>
                     <td>${team.vittorie_rig || 0}</td>
@@ -752,13 +774,21 @@
             matches.forEach((m, index) => {
                 const card = document.createElement('div');
                 card.className = 'match-card fade-in-el';
-                card.style.animationDelay = `${index * 0.05 + 0.3}s`; // Stagger, start after table
+                card.style.animationDelay = `${index * 0.05 + 0.3}s`;
+
+                // Tilt Effect Handler
+                card.addEventListener('mousemove', handleTilt);
+                card.addEventListener('mouseleave', resetTilt);
 
                 const isPlayed = !!m.risultato;
                 const dayText = typeof m.giornata === 'number' ? `Giornata ${m.giornata}` : m.giornata;
 
                 let scoreA = isPlayed ? m.gol_a : '-';
                 let scoreB = isPlayed ? m.gol_b : '-';
+
+                // Logos for match card
+                const logoA = getLogo(m.squadra_a);
+                const logoB = getLogo(m.squadra_b);
 
                 let classA = '', classB = '';
                 if (isPlayed) {
@@ -772,11 +802,17 @@
                         <span class="match-status ${isPlayed ? 'play-status' : 'status-upcoming'}">${isPlayed ? 'Terminata' : 'Da Giocare'}</span>
                     </div>
                     <div class="match-row ${classA}">
-                        <span>${m.squadra_a}</span>
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            ${logoA ? `<img src="${logoA}" style="width:24px;height:24px;" alt="">` : ''}
+                            <span>${m.squadra_a}</span>
+                        </div>
                         <span class="score-box">${scoreA}</span>
                     </div>
                     <div class="match-row ${classB}">
-                        <span>${m.squadra_b}</span>
+                         <div style="display:flex; align-items:center; gap:10px;">
+                            ${logoB ? `<img src="${logoB}" style="width:24px;height:24px;" alt="">` : ''}
+                            <span>${m.squadra_b}</span>
+                        </div>
                         <span class="score-box">${scoreB}</span>
                     </div>
                     ${(m.risultato && m.risultato.includes('rigori')) ? '<div style="font-size:0.75rem; text-align:right; color:var(--text-muted); margin-top:0.5rem; font-style:italic">DCR</div>' : ''}
@@ -911,6 +947,115 @@
         setInterval(fetchData, 30000);
         fetchData();
     </script>
+    // Only update if empty to prevent re-animation on poll
+    if (statsArea.children.length === 0) {
+    statsArea.innerHTML = `
+    <div class="stat-box fade-in-el" style="animation-delay: 0.1s">
+        <div class="stat-label">Miglior Attacco</div>
+        ${logoGf ? `<img src="${logoGf}" class="stat-team-logo" alt="logo">` : ''}
+        <div class="stat-value">${topScorerTeam.squadra}</div>
+        <div class="stat-sub"><span id="count-gf">0</span> Goal Fatti</div>
+    </div>
+    <div class="stat-box fade-in-el" style="animation-delay: 0.2s">
+        <div class="stat-label">Miglior Difesa</div>
+        ${logoGs ? `<img src="${logoGs}" class="stat-team-logo" alt="logo">` : ''}
+        <div class="stat-value">${defenseTeam.squadra}</div>
+        <div class="stat-sub"><span id="count-gs">0</span> Goal Subiti</div>
+    </div>
+    `;
+    animateValue("count-gf", 0, topScorerTeam.gol_fatti, 2000);
+    animateValue("count-gs", 0, defenseTeam.gol_subiti, 2000);
+    }
+    }
+
+    function animateValue(id, start, end, duration) {
+    const obj = document.getElementById(id);
+    if (!obj) return;
+    let current = start;
+    const range = end - start;
+    if (range === 0) { obj.textContent = end; return; }
+    const increment = end > start ? 1 : -1;
+    const stepTime = Math.max(Math.abs(Math.floor(duration / range)), 20);
+
+    const timer = setInterval(function () {
+    current += increment;
+    obj.textContent = current;
+    if (current == end) clearInterval(timer);
+    }, stepTime);
+    }
+
+    // --- VISUAL EFFECTS ---
+
+    // 3D Tilt for Cards
+    function handleTilt(e) {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotateX = ((y - centerY) / centerY) * -5; // Max 5deg
+    const rotateY = ((x - centerX) / centerX) * 5;
+
+    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+    }
+
+    function resetTilt(e) {
+    e.currentTarget.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+    }
+
+    // Gold Particles
+    (function initParticles() {
+    const canvas = document.getElementById('particle-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let particles = [];
+
+    function resize() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    class Particle {
+    constructor() {
+    this.reset();
+    }
+    reset() {
+    this.x = Math.random() * width;
+    this.y = Math.random() * height;
+    this.size = Math.random() * 2; // Tiny dust
+    this.speedX = (Math.random() - 0.5) * 0.5;
+    this.speedY = (Math.random() - 0.5) * 0.5;
+    this.alpha = Math.random() * 0.5 + 0.1;
+    }
+    update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    if (this.x < 0 || this.x> width || this.y < 0 || this.y> height) this.reset();
+            }
+            draw() {
+            ctx.fillStyle = `rgba(251, 191, 36, ${this.alpha})`;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+            }
+            }
+
+            for (let i = 0; i < 100; i++) particles.push(new Particle()); function animate() { ctx.clearRect(0, 0,
+                width, height); particles.forEach(p=> { p.update(); p.draw(); });
+                requestAnimationFrame(animate);
+                }
+                animate();
+                })();
+
+                setInterval(fetchData, 30000);
+                fetchData();
+                </script>
 </body>
 
 </html>
