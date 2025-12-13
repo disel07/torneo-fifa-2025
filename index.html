@@ -51,12 +51,84 @@
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
             min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Ambient Dynamic Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(16, 185, 129, 0.03) 0%, transparent 40%),
+                radial-gradient(circle at 80% 20%, rgba(251, 191, 36, 0.03) 0%, transparent 30%),
+                radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.03) 0%, transparent 30%);
+            animation: moveMist 60s linear infinite;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* Noise Texture for Film Look */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+            z-index: -1;
+            opacity: 0.03;
+            pointer-events: none;
+        }
+
+        @keyframes moveMist {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         .container {
             max-width: 1000px;
             margin: 0 auto;
             padding: 3rem 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Entrance Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes shimmerTitle {
+            0% {
+                background-position: -200%;
+            }
+
+            100% {
+                background-position: 200%;
+            }
+        }
+
+        .fade-in-el {
+            opacity: 0;
+            animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         /* Header */
@@ -85,33 +157,28 @@
             line-height: 1;
             margin-bottom: 0.5rem;
 
-            /* Cinematic Gold Metal Gradient */
-            background: linear-gradient(to bottom,
-                    #fff 0%,
-                    #fbbf24 40%,
+            /* Cinematic Gold Metal Gradient with Shimmer */
+            background: linear-gradient(110deg,
+                    #b45309 0%,
+                    #fbbf24 20%,
+                    #fff 25%,
+                    #fbbf24 30%,
+                    #b45309 45%,
+                    #fbbf24 80%,
                     #b45309 100%);
+            background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            animation: shimmerTitle 5s linear infinite;
 
             /* Glow / Shadow */
-            filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.3));
+            filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.4));
             position: relative;
         }
 
         h1::after {
-            content: 'ULTIMO TORNEO FIFA';
-            /* Reflection duplicate needed for some effects, or kept simple */
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: inherit;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: blur(20px);
-            opacity: 0.5;
-            z-index: -1;
+            display: none;
+            /* Remove static reflection, shimmer is enough */
         }
 
         .subtitle {
@@ -305,9 +372,10 @@
         }
 
         .match-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--text-muted);
-            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            transform: translateY(-5px) scale(1.02);
+            border-color: var(--accent-gold);
+            box-shadow: 0 15px 40px -10px rgba(251, 191, 36, 0.2);
+            z-index: 2;
         }
 
         .match-card::before {
@@ -315,14 +383,16 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 4px;
+            width: 3px;
             height: 100%;
             background: var(--bg-subtle);
-            transition: background 0.3s;
+            transition: all 0.3s;
         }
 
         .match-card:hover::before {
             background: var(--accent-gold);
+            width: 5px;
+            box-shadow: 0 0 15px var(--accent-gold);
         }
 
         .match-meta {
@@ -552,6 +622,9 @@
 
             data.forEach((team, index) => {
                 const tr = document.createElement('tr');
+                tr.className = 'fade-in-el';
+                tr.style.animationDelay = `${index * 0.05}s`; // Stagger effect
+
                 const diffClass = team.differenza_reti > 0 ? 'diff-pos' : (team.differenza_reti < 0 ? 'diff-neg' : 'diff-neu');
                 const diffSign = team.differenza_reti > 0 ? '+' : '';
 
@@ -586,9 +659,10 @@
                 return idA - idB;
             });
 
-            matches.forEach(m => {
+            matches.forEach((m, index) => {
                 const card = document.createElement('div');
-                card.className = 'match-card';
+                card.className = 'match-card fade-in-el';
+                card.style.animationDelay = `${index * 0.05 + 0.3}s`; // Stagger, start after table
 
                 const isPlayed = !!m.risultato;
                 const dayText = typeof m.giornata === 'number' ? `Giornata ${m.giornata}` : m.giornata;
@@ -632,18 +706,43 @@
             })
 
             const statsArea = document.getElementById('stats-area');
-            statsArea.innerHTML = `
-                <div class="stat-box">
+            if (!statsArea.innerHTML.trim()) { // Only populate if empty to avoid restart on every fetch, or clear first
+                statsArea.innerHTML = `
+                <div class="stat-box fade-in-el" style="animation-delay: 0.1s">
                     <div class="stat-label">Miglior Attacco</div>
                     <div class="stat-value">${topScorerTeam.squadra}</div>
-                    <div class="stat-sub">${topScorerTeam.gol_fatti} Goal Fatti</div>
+                    <div class="stat-sub"><span id="count-gf">0</span> Goal Fatti</div>
                 </div>
-                <div class="stat-box">
+                <div class="stat-box fade-in-el" style="animation-delay: 0.2s">
                     <div class="stat-label">Miglior Difesa</div>
                     <div class="stat-value">${defenseTeam.squadra}</div>
-                    <div class="stat-sub">${defenseTeam.gol_subiti} Goal Subiti</div>
+                    <div class="stat-sub"><span id="count-gs">0</span> Goal Subiti</div>
                 </div>
             `;
+                // Trigger Count Up
+                animateValue("count-gf", 0, topScorerTeam.gol_fatti, 1500);
+                animateValue("count-gs", 0, defenseTeam.gol_subiti, 1500);
+            }
+        }
+
+        function animateValue(id, start, end, duration) {
+            if (start === end) return;
+            const range = end - start;
+            let current = start;
+            const increment = end > start ? 1 : -1;
+            const stepTime = Math.abs(Math.floor(duration / range));
+            const obj = document.getElementById(id);
+
+            // Safety for infinite loops if stepTime is 0 
+            const safeStepTime = Math.max(stepTime, 20);
+
+            const timer = setInterval(function () {
+                current += increment;
+                obj.textContent = current;
+                if (current == end) {
+                    clearInterval(timer);
+                }
+            }, safeStepTime);
         }
 
         setInterval(fetchData, 30000);
