@@ -9,9 +9,51 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
     <style>
-        </head><style>
-        /* ... (Global Variables Remain Same - omitted for brevity if unchanged, but safely assume we append new styles or overwrite specific blocks) */
-        /* Actually, simpler to just inject the NEW styles and Overwrites at end of style block or replace specific parts */
+        :root {
+            /* Zinc Palette (Dark Professional) */
+            --bg-body: #09090b;
+            /* Zinc 950 */
+            --bg-card: #18181b;
+            /* Zinc 900 */
+            --bg-subtle: #27272a;
+            /* Zinc 800 */
+            --border-color: #3f3f46;
+            /* Zinc 700 */
+
+            --text-primary: #f4f4f5;
+            /* Zinc 100 */
+            --text-secondary: #a1a1aa;
+            /* Zinc 400 */
+            --text-muted: #52525b;
+            /* Zinc 600 */
+
+            /* Accents */
+            --accent-gold: #fbbf24;
+            /* Amber 400 */
+            --accent-glow: rgba(251, 191, 36, 0.15);
+
+            --success-color: #34d399;
+            /* Emerald 400 */
+            --danger-color: #f87171;
+            /* Red 400 */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
 
         /* Compact Header */
         h1 {
@@ -116,7 +158,6 @@
                 height: 36px;
             }
         }
-    </style>
     </style>
 </head>
 
