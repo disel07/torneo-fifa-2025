@@ -148,6 +148,7 @@
                     #fbf5b7 65%,
                     #aa771c 100%);
             background-size: 100% auto;
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
 
@@ -515,12 +516,43 @@
         }
 
         @media (max-width: 640px) {
-            h1 {
-                font-size: 2rem;
+            .container {
+                padding: 2rem 1rem;
+                /* Reduce side padding */
+            }
+
+            .epic-title {
+                font-size: 2.2rem;
+                /* Much smaller for mobile */
+                letter-spacing: 0.1em;
+            }
+
+            .subtitle-badge {
+                font-size: 0.75rem;
+                padding: 0.4rem 1rem;
             }
 
             .matches-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .teams-grid {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                /* Fit 2 cols on small screens */
+                gap: 1rem;
+            }
+
+            th,
+            td {
+                padding: 1rem 0.5rem;
+                /* Compact table */
+                font-size: 0.9rem;
+            }
+
+            th:first-child,
+            td:first-child {
+                padding-left: 1rem;
+                /* Less indentation */
             }
         }
     </style>
@@ -532,12 +564,10 @@
         style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; pointer-events:none;"></canvas>
     <div class="container">
         <header>
-            <header>
-                <h1 class="epic-title fade-in-el">ULTIMO TORNEO FIFA</h1>
-                <div class="subtitle-badge fade-in-el">
-                    5B Informatica 2025/2026
-                </div>
-            </header>
+            <h1 class="epic-title fade-in-el">ULTIMO TORNEO FIFA</h1>
+            <div class="subtitle-badge fade-in-el">
+                5B Informatica 2025/2026
+            </div>
         </header>
 
         <section>
