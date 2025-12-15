@@ -53,7 +53,7 @@
             "posizione": 4
         },
         {
-            "squadra": "Mattia (Barcellona)",
+            "squadra": "Luca (Juventus)",
             "giornate": 0,
             "vittorie": 0,
             "vittorie_rig": 0,
@@ -66,7 +66,7 @@
             "posizione": 5
         },
         {
-            "squadra": "Luca (Juventus)",
+            "squadra": "Mattia (Barcellona)",
             "giornate": 0,
             "vittorie": 0,
             "vittorie_rig": 0,
@@ -105,5 +105,5 @@
             "posizione": 8
         }
     ],
-    "ultimo_aggiornamento": "2025-12-15 09:38:47"
+    "ultimo_aggiornamento": "2025-12-15 10:56:46"
 }
