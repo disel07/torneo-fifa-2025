@@ -104,9 +104,55 @@
             }
         }
 
+        @keyframes textShine {
+            0% {
+                background-position: 0% 50%;
+                filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.2));
+            }
+
+            50% {
+                background-position: 100% 50%;
+                filter: drop-shadow(0 0 25px rgba(251, 191, 36, 0.6));
+            }
+
+            100% {
+                background-position: 0% 50%;
+                filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.2));
+            }
+        }
+
+        @keyframes tableRowEntrance {
+            from {
+                opacity: 0;
+                transform: translateX(-30px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
+        }
+
+        @keyframes borderPulse {
+            0% {
+                box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+                border-color: rgba(251, 191, 36, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 10px 40px -5px rgba(251, 191, 36, 0.2);
+                border-color: rgba(251, 191, 36, 0.6);
+            }
+
+            100% {
+                box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+                border-color: rgba(251, 191, 36, 0.3);
+            }
+        }
+
         .fade-in-el {
             opacity: 0;
-            animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         /* Header */
@@ -125,35 +171,41 @@
             letter-spacing: 0.15em;
             margin: 0 auto 1.5rem;
             text-align: center;
-            background: linear-gradient(to bottom,
-                    #bf953f 0%,
-                    #fcf6ba 40%,
-                    #b38728 55%,
-                    #fbf5b7 65%,
-                    #aa771c 100%);
-            background-size: 100% auto;
+            background: linear-gradient(to right,
+                    #bf953f,
+                    #fcf6ba,
+                    #b38728,
+                    #fbf5b7,
+                    #aa771c,
+                    #bf953f);
+            background-size: 200% auto;
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 2px 0px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 20px rgba(251, 191, 36, 0.4));
+            /* Animation combined: Shine infinite + Entrance once */
+            animation: textShine 5s linear infinite, fadeInUp 1s ease-out forwards;
             position: relative;
             display: block;
             transition: transform 0.3s;
         }
 
+        /* ... existing hover ... */
         .epic-title:hover {
-            transform: scale(1.02);
-            filter: drop-shadow(0 2px 0px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 40px rgba(251, 191, 36, 0.8));
+            transform: scale(1.05);
         }
 
         @media (min-width: 768px) {
             .epic-title {
-                font-size: 4.5rem;
+                font-size: 5rem;
+                /* Bigger! */
             }
         }
 
+        /* ... existing badge ... */
         .subtitle-badge {
+            /* ... */
             display: inline-block;
+            /* ... existing props ... */
             padding: 0.5rem 1.5rem;
             background: rgba(251, 191, 36, 0.1);
             border: 1px solid rgba(251, 191, 36, 0.3);
@@ -168,77 +220,15 @@
             animation-delay: 0.2s;
         }
 
-        /* Teams Section */
-        .teams-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 4rem;
-        }
-
-        .team-card {
-            background: rgba(24, 24, 27, 0.4);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.5rem;
-            text-align: center;
-            transition: all 0.3s;
-        }
-
-        .team-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-gold);
-            background: rgba(24, 24, 27, 0.8);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .team-card-logo {
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
-            margin-bottom: 1rem;
-            filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.3));
-            transition: transform 0.4s;
-        }
-
-        .team-card:hover .team-card-logo {
-            transform: scale(1.15) rotate(5deg);
-        }
-
-        .player-name {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .team-name {
-            font-size: 0.85rem;
-            color: var(--accent-gold);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-
-        /* Sections */
-        h2 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        section {
-            margin-bottom: 5rem;
-        }
+        /* ... teams grid ... */
 
         /* Tables */
         .glass-panel {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 16px;
-            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+            /* Epic Pulse Animation */
+            animation: borderPulse 4s infinite ease-in-out;
             overflow: hidden;
         }
 
@@ -734,8 +724,12 @@
 
             data.forEach((team, index) => {
                 const tr = document.createElement('tr');
-                tr.className = 'fade-in-el';
-                tr.style.animationDelay = `${index * 0.05}s`;
+                // Use default style but animation is handled by CSS on 'tbody tr' if we remove the class, 
+                // BUT we want staggered delay.
+                // Our CSS says "tbody tr { animation: tableRowEntrance ... }"
+                // So we just need to set the delay.
+                // Removing 'fade-in-el' class so it doesn't conflict.
+                tr.style.animationDelay = `${index * 0.08}s`; // Slightly slower stagger for epicness
 
                 const diffClass = team.differenza_reti > 0 ? 'diff-pos' : (team.differenza_reti < 0 ? 'diff-neg' : 'diff-neu');
                 const diffSign = team.differenza_reti > 0 ? '+' : '';
