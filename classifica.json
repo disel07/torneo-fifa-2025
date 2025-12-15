@@ -14,7 +14,7 @@
             "posizione": 1
         },
         {
-            "squadra": "Filippo (PSG)",
+            "squadra": "Mattia (Barcellona)",
             "giornate": 0,
             "vittorie": 0,
             "vittorie_rig": 0,
@@ -27,7 +27,7 @@
             "posizione": 2
         },
         {
-            "squadra": "Giuseppe (Bayern)",
+            "squadra": "Luca (Juventus)",
             "giornate": 0,
             "vittorie": 0,
             "vittorie_rig": 0,
@@ -40,7 +40,7 @@
             "posizione": 3
         },
         {
-            "squadra": "Mattia (Barcellona)",
+            "squadra": "Leonardo (Arsenal)",
             "giornate": 0,
             "vittorie": 0,
             "vittorie_rig": 0,
@@ -53,7 +53,7 @@
             "posizione": 4
         },
         {
-            "squadra": "Diell (Man City)",
+            "squadra": "Filippo (PSG)",
             "giornate": 0,
             "vittorie": 0,
             "vittorie_rig": 0,
@@ -66,7 +66,7 @@
             "posizione": 5
         },
         {
-            "squadra": "Leonardo (Arsenal)",
+            "squadra": "Giuseppe (Bayern)",
             "giornate": 0,
             "vittorie": 0,
             "vittorie_rig": 0,
@@ -79,7 +79,7 @@
             "posizione": 6
         },
         {
-            "squadra": "Luca (Juventus)",
+            "squadra": "Diell (Man City)",
             "giornate": 0,
             "vittorie": 0,
             "vittorie_rig": 0,
@@ -105,5 +105,5 @@
             "posizione": 8
         }
     ],
-    "ultimo_aggiornamento": "2025-12-15 09:30:01"
+    "ultimo_aggiornamento": "2025-12-15 09:35:51"
 }
