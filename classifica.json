@@ -1,7 +1,7 @@
 {
     "classifica": [
         {
-            "squadra": "Diell (Man City)",
+            "squadra": "Luca (Juventus)",
             "giornate": 0,
             "vittorie": 0,
             "vittorie_rig": 0,
@@ -14,7 +14,7 @@
             "posizione": 1
         },
         {
-            "squadra": "Leonardo (Arsenal)",
+            "squadra": "Mattia (Barcellona)",
             "giornate": 0,
             "vittorie": 0,
             "vittorie_rig": 0,
@@ -27,7 +27,7 @@
             "posizione": 2
         },
         {
-            "squadra": "Alessandro (Inter)",
+            "squadra": "Leonardo (Arsenal)",
             "giornate": 0,
             "vittorie": 0,
             "vittorie_rig": 0,
@@ -40,7 +40,7 @@
             "posizione": 3
         },
         {
-            "squadra": "Guido (Real Madrid)",
+            "squadra": "Diell (Man City)",
             "giornate": 0,
             "vittorie": 0,
             "vittorie_rig": 0,
@@ -66,7 +66,7 @@
             "posizione": 5
         },
         {
-            "squadra": "Mattia (Barcellona)",
+            "squadra": "Filippo (PSG)",
             "giornate": 0,
             "vittorie": 0,
             "vittorie_rig": 0,
@@ -79,7 +79,7 @@
             "posizione": 6
         },
         {
-            "squadra": "Filippo (PSG)",
+            "squadra": "Guido (Real Madrid)",
             "giornate": 0,
             "vittorie": 0,
             "vittorie_rig": 0,
@@ -90,7 +90,20 @@
             "differenza_reti": 0,
             "punti": 0,
             "posizione": 7
+        },
+        {
+            "squadra": "Alessandro (Inter)",
+            "giornate": 0,
+            "vittorie": 0,
+            "vittorie_rig": 0,
+            "sconfitte_rig": 0,
+            "sconfitte": 0,
+            "gol_fatti": 0,
+            "gol_subiti": 0,
+            "differenza_reti": 0,
+            "punti": 0,
+            "posizione": 8
         }
     ],
-    "ultimo_aggiornamento": "2025-12-15 08:12:47"
+    "ultimo_aggiornamento": "2025-12-15 08:20:37"
 }
