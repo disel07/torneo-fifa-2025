@@ -104,9 +104,9 @@
             "giornata": 3,
             "squadra_a": "Luca (Juventus)",
             "squadra_b": "Leonardo (Arsenal)",
-            "gol_a": null,
-            "gol_b": null,
-            "risultato": null
+            "gol_a": 1,
+            "gol_b": 1,
+            "risultato": "rigori_a"
         },
         {
             "id": 10,
