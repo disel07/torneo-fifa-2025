@@ -27,33 +27,33 @@
             "posizione": 2
         },
         {
-            "squadra": "Mattia (Barcellona)",
-            "giornate": 0,
+            "squadra": "Giuseppe (Bayern)",
+            "giornate": 1,
             "vittorie": 0,
-            "vittorie_rig": 0,
+            "vittorie_rig": 1,
             "sconfitte_rig": 0,
             "sconfitte": 0,
-            "gol_fatti": 0,
-            "gol_subiti": 0,
+            "gol_fatti": 1,
+            "gol_subiti": 1,
             "differenza_reti": 0,
-            "punti": 0,
+            "punti": 2,
             "posizione": 3
         },
         {
-            "squadra": "Giuseppe (Bayern)",
-            "giornate": 0,
+            "squadra": "Leonardo (Arsenal)",
+            "giornate": 1,
             "vittorie": 0,
             "vittorie_rig": 0,
-            "sconfitte_rig": 0,
+            "sconfitte_rig": 1,
             "sconfitte": 0,
-            "gol_fatti": 0,
-            "gol_subiti": 0,
+            "gol_fatti": 1,
+            "gol_subiti": 1,
             "differenza_reti": 0,
-            "punti": 0,
+            "punti": 1,
             "posizione": 4
         },
         {
-            "squadra": "Leonardo (Arsenal)",
+            "squadra": "Mattia (Barcellona)",
             "giornate": 0,
             "vittorie": 0,
             "vittorie_rig": 0,
@@ -105,5 +105,5 @@
             "posizione": 8
         }
     ],
-    "ultimo_aggiornamento": "2025-12-15 09:24:53"
+    "ultimo_aggiornamento": "2025-12-15 09:38:47"
 }
