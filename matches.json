@@ -3,26 +3,26 @@
         {
             "id": 1,
             "giornata": 1,
-            "squadra_a": "Guido (Real Madrid)",
+            "squadra_a": "Alessandro (Inter)",
             "squadra_b": "Filippo (PSG)",
-            "gol_a": 3,
-            "gol_b": 1,
-            "risultato": "90"
+            "gol_a": null,
+            "gol_b": null,
+            "risultato": null
         },
         {
             "id": 2,
             "giornata": 1,
-            "squadra_a": "Alessandro (Man City)",
-            "squadra_b": "Giuseppe (Bayern)",
+            "squadra_a": "Guido (Real Madrid)",
+            "squadra_b": "Diell (Man City)",
             "gol_a": null,
             "gol_b": null,
             "risultato": null
         },
         {
             "id": 3,
-            "giornata": 2,
-            "squadra_a": "Filippo (PSG)",
-            "squadra_b": "Alessandro (Man City)",
+            "giornata": 1,
+            "squadra_a": "Leonardo (Arsenal)",
+            "squadra_b": "Giuseppe (Bayern)",
             "gol_a": null,
             "gol_b": null,
             "risultato": null
@@ -30,23 +30,41 @@
         {
             "id": 4,
             "giornata": 2,
-            "squadra_a": "Giuseppe (Bayern)",
-            "squadra_b": "Diell (Inter)",
+            "squadra_a": "Mattia (Barcellona)",
+            "squadra_b": "Filippo (PSG)",
             "gol_a": null,
             "gol_b": null,
             "risultato": null
         },
         {
             "id": 5,
-            "giornata": 3,
-            "squadra_a": "Diell (Inter)",
-            "squadra_b": "Guido (Real Madrid)",
+            "giornata": 2,
+            "squadra_a": "Alessandro (Inter)",
+            "squadra_b": "Giuseppe (Bayern)",
             "gol_a": null,
             "gol_b": null,
             "risultato": null
         },
         {
             "id": 6,
+            "giornata": 2,
+            "squadra_a": "Guido (Real Madrid)",
+            "squadra_b": "Leonardo (Arsenal)",
+            "gol_a": null,
+            "gol_b": null,
+            "risultato": null
+        },
+        {
+            "id": 7,
+            "giornata": 3,
+            "squadra_a": "Mattia (Barcellona)",
+            "squadra_b": "Diell (Man City)",
+            "gol_a": null,
+            "gol_b": null,
+            "risultato": null
+        },
+        {
+            "id": 8,
             "giornata": 3,
             "squadra_a": "Filippo (PSG)",
             "squadra_b": "Giuseppe (Bayern)",
@@ -55,127 +73,118 @@
             "risultato": null
         },
         {
-            "id": 7,
-            "giornata": 4,
-            "squadra_a": "Guido (Real Madrid)",
-            "squadra_b": "Giuseppe (Bayern)",
-            "gol_a": null,
-            "gol_b": null,
-            "risultato": null
-        },
-        {
-            "id": 8,
-            "giornata": 4,
-            "squadra_a": "Alessandro (Man City)",
-            "squadra_b": "Diell (Inter)",
-            "gol_a": null,
-            "gol_b": null,
-            "risultato": null
-        },
-        {
             "id": 9,
-            "giornata": 5,
-            "squadra_a": "Guido (Real Madrid)",
-            "squadra_b": "Alessandro (Man City)",
+            "giornata": 3,
+            "squadra_a": "Alessandro (Inter)",
+            "squadra_b": "Guido (Real Madrid)",
             "gol_a": null,
             "gol_b": null,
             "risultato": null
         },
         {
             "id": 10,
-            "giornata": 5,
-            "squadra_a": "Diell (Inter)",
-            "squadra_b": "Filippo (PSG)",
-            "gol_a": null,
-            "gol_b": null,
-            "risultato": null
-        },
-        {
-            "id": 11,
-            "giornata": 6,
-            "squadra_a": "Filippo (PSG)",
-            "squadra_b": "Guido (Real Madrid)",
-            "gol_a": null,
-            "gol_b": null,
-            "risultato": null
-        },
-        {
-            "id": 12,
-            "giornata": 6,
-            "squadra_a": "Giuseppe (Bayern)",
-            "squadra_b": "Alessandro (Man City)",
-            "gol_a": null,
-            "gol_b": null,
-            "risultato": null
-        },
-        {
-            "id": 13,
-            "giornata": 7,
-            "squadra_a": "Alessandro (Man City)",
-            "squadra_b": "Filippo (PSG)",
-            "gol_a": null,
-            "gol_b": null,
-            "risultato": null
-        },
-        {
-            "id": 14,
-            "giornata": 7,
-            "squadra_a": "Diell (Inter)",
+            "giornata": 4,
+            "squadra_a": "Mattia (Barcellona)",
             "squadra_b": "Giuseppe (Bayern)",
             "gol_a": null,
             "gol_b": null,
             "risultato": null
         },
         {
+            "id": 11,
+            "giornata": 4,
+            "squadra_a": "Diell (Man City)",
+            "squadra_b": "Leonardo (Arsenal)",
+            "gol_a": null,
+            "gol_b": null,
+            "risultato": null
+        },
+        {
+            "id": 12,
+            "giornata": 4,
+            "squadra_a": "Filippo (PSG)",
+            "squadra_b": "Guido (Real Madrid)",
+            "gol_a": null,
+            "gol_b": null,
+            "risultato": null
+        },
+        {
+            "id": 13,
+            "giornata": 5,
+            "squadra_a": "Mattia (Barcellona)",
+            "squadra_b": "Leonardo (Arsenal)",
+            "gol_a": null,
+            "gol_b": null,
+            "risultato": null
+        },
+        {
+            "id": 14,
+            "giornata": 5,
+            "squadra_a": "Giuseppe (Bayern)",
+            "squadra_b": "Guido (Real Madrid)",
+            "gol_a": null,
+            "gol_b": null,
+            "risultato": null
+        },
+        {
             "id": 15,
-            "giornata": 8,
-            "squadra_a": "Guido (Real Madrid)",
-            "squadra_b": "Diell (Inter)",
+            "giornata": 5,
+            "squadra_a": "Diell (Man City)",
+            "squadra_b": "Alessandro (Inter)",
             "gol_a": null,
             "gol_b": null,
             "risultato": null
         },
         {
             "id": 16,
-            "giornata": 8,
-            "squadra_a": "Giuseppe (Bayern)",
-            "squadra_b": "Filippo (PSG)",
+            "giornata": 6,
+            "squadra_a": "Mattia (Barcellona)",
+            "squadra_b": "Guido (Real Madrid)",
             "gol_a": null,
             "gol_b": null,
             "risultato": null
         },
         {
             "id": 17,
-            "giornata": 9,
-            "squadra_a": "Giuseppe (Bayern)",
-            "squadra_b": "Guido (Real Madrid)",
+            "giornata": 6,
+            "squadra_a": "Leonardo (Arsenal)",
+            "squadra_b": "Alessandro (Inter)",
             "gol_a": null,
             "gol_b": null,
             "risultato": null
         },
         {
             "id": 18,
-            "giornata": 9,
-            "squadra_a": "Diell (Inter)",
-            "squadra_b": "Alessandro (Man City)",
+            "giornata": 6,
+            "squadra_a": "Diell (Man City)",
+            "squadra_b": "Filippo (PSG)",
             "gol_a": null,
             "gol_b": null,
             "risultato": null
         },
         {
             "id": 19,
-            "giornata": 10,
-            "squadra_a": "Alessandro (Man City)",
-            "squadra_b": "Guido (Real Madrid)",
+            "giornata": 7,
+            "squadra_a": "Mattia (Barcellona)",
+            "squadra_b": "Alessandro (Inter)",
             "gol_a": null,
             "gol_b": null,
             "risultato": null
         },
         {
             "id": 20,
-            "giornata": 10,
-            "squadra_a": "Filippo (PSG)",
-            "squadra_b": "Diell (Inter)",
+            "giornata": 7,
+            "squadra_a": "Leonardo (Arsenal)",
+            "squadra_b": "Filippo (PSG)",
+            "gol_a": null,
+            "gol_b": null,
+            "risultato": null
+        },
+        {
+            "id": 21,
+            "giornata": 7,
+            "squadra_a": "Giuseppe (Bayern)",
+            "squadra_b": "Diell (Man City)",
             "gol_a": null,
             "gol_b": null,
             "risultato": null

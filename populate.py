@@ -1,71 +1,83 @@
 import json
 import os
 
-def load_matches():
-    if os.path.exists("matches.json"):
-        with open("matches.json", "r") as f:
-            return json.load(f)
-    return []
+MATCHES_FILE = "matches.json"
 
-def save_matches(matches):
-    with open("matches.json", "w") as f:
-        json.dump(matches, f, indent=4)
+def load_data():
+    if os.path.exists(MATCHES_FILE):
+        with open(MATCHES_FILE, "r") as f:
+            return json.load(f)
+    return {"matches": [], "playoffs": []}
+
+def save_data(data):
+    with open(MATCHES_FILE, "w") as f:
+        json.dump(data, f, indent=4)
 
 def main():
-    print("Add a new match result")
-    matches = load_matches()
+    data = load_data()
+    matches = data.get("matches", [])
     
-    # Simple auto-increment ID
-    new_id = matches[-1]["id"] + 1 if matches else 1
+    if not matches:
+        print("Nessuna partita trovata.")
+        return
+
+    # Filter unplayed matches or show all? Let's show unplayed first.
+    unplayed = [m for m in matches if m.get("risultato") is None]
     
-    home_team = input("Home Team: ").strip()
-    away_team = input("Away Team: ").strip()
+    if not unplayed:
+        print("Tutte le partite sono state giocate!")
+        # Optional: Allow editing played matches? 
+        # For simplicity, stick to unplayed for now, or listing all would be too long.
+    else:
+        print(f"\n--- {len(unplayed)} Partite da giocare ---")
+        # Show first 10
+        for m in unplayed[:10]:
+            print(f"ID: {m['id']} | G{m['giornata']} | {m['squadra_a']} vs {m['squadra_b']}")
+        if len(unplayed) > 10:
+            print("...")
+
+    match_id = input("\nInserisci ID partita da aggiornare: ").strip()
     
-    while True:
-        try:
-            home_score = int(input(f"Score {home_team}: "))
-            break
-        except ValueError:
-            print("Invalid number")
-            
-    while True:
-        try:
-            away_score = int(input(f"Score {away_team}: "))
-            break
-        except ValueError:
-            print("Invalid number")
+    match = next((m for m in matches if str(m["id"]) == match_id), None)
     
-    penalty_winner = None
-    if home_score == away_score:
-        print("Match drawn. Who won on penalties?")
-        print(f"1. {home_team}")
-        print(f"2. {away_team}")
-        while True:
-            choice = input("Choice (1/2): ").strip()
-            if choice == "1":
-                penalty_winner = home_team
-                break
-            elif choice == "2":
-                penalty_winner = away_team
-                break
-            else:
-                print("Invalid choice")
+    if not match:
+        print("Partita non trovata.")
+        return
+
+    print(f"\nModifica risultato: {match['squadra_a']} vs {match['squadra_b']}")
     
-    match = {
-        "id": new_id,
-        "home_team": home_team,
-        "away_team": away_team,
-        "home_score": home_score,
-        "away_score": away_score,
-        "played": True
-    }
+    try:
+        gol_a = int(input(f"Gol {match['squadra_a']}: "))
+        gol_b = int(input(f"Gol {match['squadra_b']}: "))
+    except ValueError:
+        print("Valore non valido. Inserisci numeri interi.")
+        return
+
+    risultato = "90"
+    if gol_a > gol_b:
+        risultato = "90"
+    elif gol_b > gol_a:
+        risultato = "90"
+    else:
+        # Draw
+        print("Pareggio! Chi ha vinto ai rigori?")
+        print(f"1. {match['squadra_a']}")
+        print(f"2. {match['squadra_b']}")
+        choice = input("Scelta (1/2): ").strip()
+        if choice == "1":
+            risultato = "rigori_a"
+        elif choice == "2":
+            risultato = "rigori_b"
+        else:
+            print("Scelta non valida, salvataggio annullato.")
+            return
+
+    match["gol_a"] = gol_a
+    match["gol_b"] = gol_b
+    match["risultato"] = risultato
     
-    if penalty_winner:
-        match["penalty_winner"] = penalty_winner
-        
-    matches.append(match)
-    save_matches(matches)
-    print("Match added successfully!")
+    save_data(data)
+    print("Risultato salvato con successo!")
 
 if __name__ == "__main__":
     main()

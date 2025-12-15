@@ -2,19 +2,19 @@
     "classifica": [
         {
             "squadra": "Guido (Real Madrid)",
-            "giornate": 1,
-            "vittorie": 1,
+            "giornate": 0,
+            "vittorie": 0,
             "vittorie_rig": 0,
             "sconfitte_rig": 0,
             "sconfitte": 0,
-            "gol_fatti": 3,
-            "gol_subiti": 1,
-            "differenza_reti": 2,
-            "punti": 3,
+            "gol_fatti": 0,
+            "gol_subiti": 0,
+            "differenza_reti": 0,
+            "punti": 0,
             "posizione": 1
         },
         {
-            "squadra": "Giuseppe (Bayern)",
+            "squadra": "Leonardo (Arsenal)",
             "giornate": 0,
             "vittorie": 0,
             "vittorie_rig": 0,
@@ -27,7 +27,7 @@
             "posizione": 2
         },
         {
-            "squadra": "Diell (Inter)",
+            "squadra": "Giuseppe (Bayern)",
             "giornate": 0,
             "vittorie": 0,
             "vittorie_rig": 0,
@@ -40,7 +40,7 @@
             "posizione": 3
         },
         {
-            "squadra": "Alessandro (Man City)",
+            "squadra": "Mattia (Barcellona)",
             "giornate": 0,
             "vittorie": 0,
             "vittorie_rig": 0,
@@ -54,17 +54,43 @@
         },
         {
             "squadra": "Filippo (PSG)",
-            "giornate": 1,
+            "giornate": 0,
             "vittorie": 0,
             "vittorie_rig": 0,
             "sconfitte_rig": 0,
-            "sconfitte": 1,
-            "gol_fatti": 1,
-            "gol_subiti": 3,
-            "differenza_reti": -2,
+            "sconfitte": 0,
+            "gol_fatti": 0,
+            "gol_subiti": 0,
+            "differenza_reti": 0,
             "punti": 0,
             "posizione": 5
+        },
+        {
+            "squadra": "Alessandro (Inter)",
+            "giornate": 0,
+            "vittorie": 0,
+            "vittorie_rig": 0,
+            "sconfitte_rig": 0,
+            "sconfitte": 0,
+            "gol_fatti": 0,
+            "gol_subiti": 0,
+            "differenza_reti": 0,
+            "punti": 0,
+            "posizione": 6
+        },
+        {
+            "squadra": "Diell (Man City)",
+            "giornate": 0,
+            "vittorie": 0,
+            "vittorie_rig": 0,
+            "sconfitte_rig": 0,
+            "sconfitte": 0,
+            "gol_fatti": 0,
+            "gol_subiti": 0,
+            "differenza_reti": 0,
+            "punti": 0,
+            "posizione": 7
         }
     ],
-    "ultimo_aggiornamento": "2025-12-13 17:43:16"
+    "ultimo_aggiornamento": "2025-12-15 09:09:39"
 }

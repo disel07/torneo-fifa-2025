@@ -75,3 +75,6 @@ Non serve installare nulla sul PC se modifichi direttamente da GitHub.com (vedi 
 - **Test:** Tutti i unit test (`test_tournament.py`) passano correttamente.
 - **Dati:** `matches.json` contiene calendario completo e 1 risultato di prova (Giornata 1).
 - **Deploy:** Configurato su GitHub Pages (branch `main`).
+
+
+##
