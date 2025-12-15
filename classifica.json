@@ -14,7 +14,7 @@
             "posizione": 1
         },
         {
-            "squadra": "Filippo (PSG)",
+            "squadra": "Luca (Juventus)",
             "giornate": 2,
             "vittorie": 2,
             "vittorie_rig": 0,
@@ -27,7 +27,7 @@
             "posizione": 2
         },
         {
-            "squadra": "Luca (Juventus)",
+            "squadra": "Filippo (PSG)",
             "giornate": 2,
             "vittorie": 2,
             "vittorie_rig": 0,
@@ -105,5 +105,5 @@
             "posizione": 8
         }
     ],
-    "ultimo_aggiornamento": "2025-12-15 12:11:06"
+    "ultimo_aggiornamento": "2025-12-15 11:12:21"
 }
