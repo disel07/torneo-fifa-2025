@@ -5,9 +5,9 @@
             "giornata": 1,
             "squadra_a": "Alessandro (Inter)",
             "squadra_b": "Filippo (PSG)",
-            "gol_a": null,
-            "gol_b": null,
-            "risultato": null
+            "gol_a": 0,
+            "gol_b": 3,
+            "risultato": "90"
         },
         {
             "id": 2,
