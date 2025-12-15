@@ -5,8 +5,8 @@
             "giornata": 1,
             "squadra_a": "Alessandro (Inter)",
             "squadra_b": "Filippo (PSG)",
-            "gol_a": 0,
-            "gol_b": 3,
+            "gol_a": 1,
+            "gol_b": 2,
             "risultato": "90"
         },
         {
@@ -14,8 +14,8 @@
             "giornata": 1,
             "squadra_a": "Guido (Real Madrid)",
             "squadra_b": "Diell (Man City)",
-            "gol_a": null,
-            "gol_b": null,
+            "gol_a": 3,
+            "gol_b": 0,
             "risultato": null
         },
         {
