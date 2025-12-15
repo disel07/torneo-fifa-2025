@@ -36,7 +36,7 @@ Vedrai la classifica aggiornata, le statistiche e le prossime partite.
 
 ## 🏆 Playoff (Automatici)
 Non devi fare nulla!
-Quando avrai inserito **tutti i risultati** delle 21 partite di campionato:
+Quando avrai inserito **tutti i risultati** delle 28 partite di campionato:
 1.  Il sistema creerà **automaticamente** le partite delle Semifinali in fondo alla lista delle partite.
 2.  Giocate le semifinali e inserite i risultati come sempre.
 3.  Il sistema creerà automaticamente la Finale Playoff e poi la Finalissima.

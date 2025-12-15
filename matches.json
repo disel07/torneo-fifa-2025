@@ -188,6 +188,69 @@
             "gol_a": null,
             "gol_b": null,
             "risultato": null
+        },
+        {
+            "id": 22,
+            "giornata": 1,
+            "squadra_a": "Luca (Juventus)",
+            "squadra_b": "Mattia (Barcellona)",
+            "gol_a": null,
+            "gol_b": null,
+            "risultato": null
+        },
+        {
+            "id": 23,
+            "giornata": 2,
+            "squadra_a": "Luca (Juventus)",
+            "squadra_b": "Diell (Man City)",
+            "gol_a": null,
+            "gol_b": null,
+            "risultato": null
+        },
+        {
+            "id": 24,
+            "giornata": 3,
+            "squadra_a": "Luca (Juventus)",
+            "squadra_b": "Leonardo (Arsenal)",
+            "gol_a": null,
+            "gol_b": null,
+            "risultato": null
+        },
+        {
+            "id": 25,
+            "giornata": 4,
+            "squadra_a": "Luca (Juventus)",
+            "squadra_b": "Alessandro (Inter)",
+            "gol_a": null,
+            "gol_b": null,
+            "risultato": null
+        },
+        {
+            "id": 26,
+            "giornata": 5,
+            "squadra_a": "Luca (Juventus)",
+            "squadra_b": "Filippo (PSG)",
+            "gol_a": null,
+            "gol_b": null,
+            "risultato": null
+        },
+        {
+            "id": 27,
+            "giornata": 6,
+            "squadra_a": "Luca (Juventus)",
+            "squadra_b": "Giuseppe (Bayern)",
+            "gol_a": null,
+            "gol_b": null,
+            "risultato": null
+        },
+        {
+            "id": 28,
+            "giornata": 7,
+            "squadra_a": "Luca (Juventus)",
+            "squadra_b": "Guido (Real Madrid)",
+            "gol_a": null,
+            "gol_b": null,
+            "risultato": null
         }
     ],
     "playoffs": []
