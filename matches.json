@@ -258,8 +258,8 @@
         {
             "id": "special_1",
             "giornata": "Amichevole",
-            "squadra_a": "Prof di tipsit (Juve)",
-            "squadra_b": "Prof di tipsit (Milan)",
+            "squadra_a": "Prof di TPSIT (Juve)",
+            "squadra_b": "Prof di TPSIT (Milan)",
             "gol_a": 1,
             "gol_b": 1,
             "risultato": "rigori_a",
