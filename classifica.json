@@ -1,6 +1,19 @@
 {
     "classifica": [
         {
+            "squadra": "Filippo (PSG)",
+            "giornate": 3,
+            "vittorie": 3,
+            "vittorie_rig": 0,
+            "sconfitte_rig": 0,
+            "sconfitte": 0,
+            "gol_fatti": 10,
+            "gol_subiti": 1,
+            "differenza_reti": 9,
+            "punti": 9,
+            "posizione": 1
+        },
+        {
             "squadra": "Guido (Real Madrid)",
             "giornate": 2,
             "vittorie": 2,
@@ -10,19 +23,6 @@
             "gol_fatti": 7,
             "gol_subiti": 0,
             "differenza_reti": 7,
-            "punti": 6,
-            "posizione": 1
-        },
-        {
-            "squadra": "Filippo (PSG)",
-            "giornate": 2,
-            "vittorie": 2,
-            "vittorie_rig": 0,
-            "sconfitte_rig": 0,
-            "sconfitte": 0,
-            "gol_fatti": 6,
-            "gol_subiti": 1,
-            "differenza_reti": 5,
             "punti": 6,
             "posizione": 2
         },
@@ -53,17 +53,30 @@
             "posizione": 4
         },
         {
+            "squadra": "Mattia (Barcellona)",
+            "giornate": 3,
+            "vittorie": 1,
+            "vittorie_rig": 0,
+            "sconfitte_rig": 0,
+            "sconfitte": 2,
+            "gol_fatti": 4,
+            "gol_subiti": 6,
+            "differenza_reti": -2,
+            "punti": 3,
+            "posizione": 5
+        },
+        {
             "squadra": "Giuseppe (Bayern)",
-            "giornate": 2,
+            "giornate": 3,
             "vittorie": 0,
             "vittorie_rig": 1,
             "sconfitte_rig": 0,
-            "sconfitte": 1,
+            "sconfitte": 2,
             "gol_fatti": 1,
-            "gol_subiti": 3,
-            "differenza_reti": -2,
+            "gol_subiti": 7,
+            "differenza_reti": -6,
             "punti": 2,
-            "posizione": 5
+            "posizione": 6
         },
         {
             "squadra": "Leonardo (Arsenal)",
@@ -76,34 +89,21 @@
             "gol_subiti": 5,
             "differenza_reti": -4,
             "punti": 1,
-            "posizione": 6
-        },
-        {
-            "squadra": "Mattia (Barcellona)",
-            "giornate": 2,
-            "vittorie": 0,
-            "vittorie_rig": 0,
-            "sconfitte_rig": 0,
-            "sconfitte": 2,
-            "gol_fatti": 1,
-            "gol_subiti": 6,
-            "differenza_reti": -5,
-            "punti": 0,
             "posizione": 7
         },
         {
             "squadra": "Diell (Man City)",
-            "giornate": 2,
+            "giornate": 3,
             "vittorie": 0,
             "vittorie_rig": 0,
             "sconfitte_rig": 0,
-            "sconfitte": 2,
+            "sconfitte": 3,
             "gol_fatti": 0,
-            "gol_subiti": 7,
-            "differenza_reti": -7,
+            "gol_subiti": 10,
+            "differenza_reti": -10,
             "punti": 0,
             "posizione": 8
         }
     ],
-    "ultimo_aggiornamento": "2025-12-15 12:19:36"
+    "ultimo_aggiornamento": "2025-12-15 11:25:57"
 }
