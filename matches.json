@@ -59,9 +59,9 @@
             "giornata": 2,
             "squadra_a": "Guido (Real Madrid)",
             "squadra_b": "Leonardo (Arsenal)",
-            "gol_a": null,
-            "gol_b": null,
-            "risultato": null
+            "gol_a": 4,
+            "gol_b": 0,
+            "risultato": "90"
         },
         {
             "id": 23,
