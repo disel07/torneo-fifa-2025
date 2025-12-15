@@ -627,6 +627,13 @@
             </div>
         </section>
 
+        <section id="professori-section" style="display:none">
+            <h2>SFIDE SPECIALI</h2>
+            <div id="professori-container" class="matches-grid">
+                <!-- JS Injected -->
+            </div>
+        </section>
+
         <section>
             <h2>Calendario</h2>
             <div id="matches-container">
@@ -634,12 +641,7 @@
             </div>
         </section>
 
-        <section id="professori-section" style="display:none">
-            <h2>Professori</h2>
-            <div id="professori-container" class="matches-grid">
-                <!-- JS Injected -->
-            </div>
-        </section>
+
 
         <footer>
             <p id="last-update">Aggiornato: --</p>
@@ -648,6 +650,7 @@
 
     <script>
         // --- CONFIG & ASSETS ---
+        // Mappa dei loghi per le squadre, associa nome squadra al file immagine
         const logoMap = {
             "Real Madrid": "assets/logos/real_madrid.png",
             "PSG": "assets/logos/psg.png",
@@ -660,57 +663,88 @@
             "Juve": "assets/logos/juventus.png"
         };
 
+        // Funzione per ottenere il percorso del logo
         function getLogo(teamName) {
+            // Cerca se il nome della squadra contiene una delle chiavi nella mappa
             for (const key in logoMap) {
-                if (teamName.includes(key)) return logoMap[key];
+                if (teamName.includes(key)) return logoMap[key]; // Restituisce il logo se trovato
             }
-            return ""; // Fallback or clear image
+            return ""; // Restituisce stringa vuota se non trova nulla
         }
 
+        // Cache degli elementi DOM per evitare di cercarli ogni volta (ottimizzazione)
+        const domCache = {
+            standingsBody: document.getElementById('standings-body'),
+            matchesContainer: document.getElementById('matches-container'),
+            professoriSection: document.getElementById('professori-section'),
+            professoriContainer: document.getElementById('professori-container'),
+            teamsContainer: document.getElementById('teams-container'),
+            statsArea: document.getElementById('stats-area'),
+            lastUpdate: document.getElementById('last-update')
+        };
+
         // --- MAIN LOGIC ---
+        // Funzione principale che scarica i dati
         async function fetchData() {
             try {
+                // Crea un timestamp per evitare che il browser usi dati vecchi (cache busting)
                 const t = new Date().getTime();
+
+                // Scarica classifica e partite in parallelo per fare prima
                 const [standingsRes, matchesRes] = await Promise.all([
                     fetch('classifica.json?t=' + t),
                     fetch('matches.json?t=' + t)
                 ]);
 
+                // Controlla se i file esistono, altrimenti ferma tutto
                 if (!standingsRes.ok || !matchesRes.ok) throw new Error("File missing");
 
+                // Converte i dati scaricati in formato leggibile (JSON)
                 const standingsData = await standingsRes.json();
                 const matchesData = await matchesRes.json();
 
+                // Disegna la classifica sulla pagina
                 renderStandings(standingsData.classifica);
 
+                // Unisce partite normali e playoff in un'unica lista
                 const allMatches = [...(matchesData.matches || []), ...(matchesData.playoffs || [])];
+                // Disegna le partite del calendario
                 renderMatches(allMatches);
 
+                // Se ci sono partite speciali (Professori), le disegna
                 if (matchesData.professori && matchesData.professori.length > 0) {
                     renderSpecials(matchesData.professori);
                 }
 
-                document.getElementById('last-update').textContent = 'Ultimo aggiornamento: ' + (standingsData.ultimo_aggiornamento || 'N/A');
+                // Aggiorna la scritta dell'ultimo aggiornamento in fondo alla pagina
+                domCache.lastUpdate.textContent = 'Ultimo aggiornamento: ' + (standingsData.ultimo_aggiornamento || 'N/A');
+
+                // Calcola e mostra le statistiche (miglior attacco, ecc.)
                 calculateStats(standingsData.classifica);
+
+                // Disegna la lista delle squadre e giocatori
                 renderTeams(standingsData.classifica);
 
             } catch (e) {
+                // Se c'è un errore, lo scrive nella console del browser
                 console.error("Error:", e);
             }
         }
 
+        // Calcola le statistiche dai dati della classifica
         function calculateStats(ranking) {
-            const statsArea = document.getElementById('stats-area');
+            // Se non ci sono dati, non fa nulla
             if (!ranking || ranking.length === 0) return;
 
-            // Best Attack
+            // Trova chi ha fatto più gol (Miglior Attacco)
             const bestAttack = [...ranking].sort((a, b) => b.gol_fatti - a.gol_fatti)[0];
-            // Best Defense
-            const bestDefense = [...ranking].sort((a, b) => a.gol_subiti - b.gol_subiti)[0]; // Lowest is better
-            // Most Wins
-            const mostWins = [...ranking].sort((a, b) => b.vittorie - a.vittorie)[0];
+            // Trova chi ha subito meno gol (Miglior Difesa)
+            const bestDefense = [...ranking].sort((a, b) => a.gol_subiti - b.gol_subiti)[0];
+            // Trova la capolista (primo in classifica)
+            const topTeam = ranking[0];
 
-            statsArea.innerHTML = `
+            // Inserisce l'HTML delle statistiche nella pagina
+            domCache.statsArea.innerHTML = `
                 <div class="stat-box fade-in-el" style="animation-delay: 0.1s">
                     <div class="stat-label">Miglior Attacco</div>
                     ${getLogo(bestAttack.squadra) ? `<img src="${getLogo(bestAttack.squadra)}" class="stat-team-logo" alt="">` : ''}
@@ -725,37 +759,44 @@
                 </div>
                  <div class="stat-box fade-in-el" style="animation-delay: 0.3s">
                      <div class="stat-label">Capolista</div>
-                    ${getLogo(ranking[0].squadra) ? `<img src="${getLogo(ranking[0].squadra)}" class="stat-team-logo" alt="">` : ''}
-                    <div class="stat-value">${ranking[0].punti}</div>
-                    <div class="stat-sub">Punti (${ranking[0].squadra.split('(')[0]})</div>
+                    ${getLogo(topTeam.squadra) ? `<img src="${getLogo(topTeam.squadra)}" class="stat-team-logo" alt="">` : ''}
+                    <div class="stat-value">${topTeam.punti}</div>
+                    <div class="stat-sub">Punti (${topTeam.squadra.split('(')[0]})</div>
                 </div>
             `;
         }
 
+        // Disegna le card delle squadre
         function renderTeams(data) {
-            const container = document.getElementById('teams-container');
-            if (!container) return;
-            container.innerHTML = '';
+            if (!domCache.teamsContainer) return;
+
+            // Pulisce il contenitore
+            domCache.teamsContainer.innerHTML = '';
+            // Usa un fragment per aggiungere tutto in un colpo solo (più veloce)
+            const fragment = document.createDocumentFragment();
 
             data.forEach((team, idx) => {
+                // Crea il contenitore della card
                 const card = document.createElement('div');
                 card.className = 'team-card fade-in-el';
+                // Aggiunge un ritardo all'animazione per l'effetto cascata
                 card.style.animationDelay = (idx * 0.1) + 's';
 
                 const logo = getLogo(team.squadra);
 
-                // Extract Player Name if format is "Player (Team)"
+                // Estrae il nome del giocatore e della squadra dalla stringa "Nome (Squadra)"
                 let player = team.squadra;
                 let club = "FC Club";
 
                 if (team.squadra.includes('(')) {
                     const parts = team.squadra.split('(');
-                    player = parts[0].trim();
-                    club = parts[1].replace(')', '').trim();
+                    player = parts[0].trim(); // Nome giocatore
+                    club = parts[1].replace(')', '').trim(); // Nome squadra
                 } else {
                     club = team.squadra;
                 }
 
+                // Genera l'HTML interno della card
                 card.innerHTML = `
                     ${logo ? `<img src="${logo}" class="team-card-logo" alt="${club}">` : ''}
                     <div class="player-name">${player}</div>
@@ -765,26 +806,35 @@
                     </div>
                  `;
 
-                container.appendChild(card);
+                // Aggiunge la card al fragment
+                fragment.appendChild(card);
             });
+
+            // Aggiunge tutto il fragment alla pagina in una volta sola
+            domCache.teamsContainer.appendChild(fragment);
         }
 
+        // Disegna la tabella della classifica
         function renderStandings(data) {
-            const tbody = document.getElementById('standings-body');
-            tbody.innerHTML = '';
+            // Pulisce la tabella
+            domCache.standingsBody.innerHTML = '';
+            const fragment = document.createDocumentFragment();
 
             data.forEach((team, index) => {
                 const tr = document.createElement('tr');
                 tr.className = 'fade-in-el';
                 tr.style.animationDelay = `${index * 0.05}s`;
 
+                // Calcola il colore della differenza reti (verde, rosso o grigio)
                 const diffClass = team.differenza_reti > 0 ? 'diff-pos' : (team.differenza_reti < 0 ? 'diff-neg' : 'diff-neu');
                 const diffSign = team.differenza_reti > 0 ? '+' : '';
                 const logo = getLogo(team.squadra);
 
+                // Assegna la corona al primo posto
                 let rankContent = `<span class="rank-num">${index + 1}</span>`;
                 if (index === 0) rankContent = `<span class="rank-num">👑</span>`;
 
+                // Riempie la riga della tabella con i dati
                 tr.innerHTML = `
                     <td>
                         <div style="display:flex; align-items:center; gap:10px;">
@@ -803,17 +853,22 @@
                     <td class="${diffClass}">${diffSign}${team.differenza_reti}</td>
                     <td class="sticky-col points-val">${team.punti}</td>
                 `;
-                tbody.appendChild(tr);
+                fragment.appendChild(tr);
             });
+
+            // Aggiunge tutte le righe alla tabella
+            domCache.standingsBody.appendChild(fragment);
         }
 
+        // Disegna le partite speciali (es. Professori)
         function renderSpecials(matches) {
-            const section = document.getElementById('professori-section');
-            const container = document.getElementById('professori-container');
-            if (!container || !matches || matches.length === 0) return;
+            if (!domCache.professoriContainer || !matches || matches.length === 0) return;
 
-            section.style.display = 'block';
-            container.innerHTML = '';
+            // Mostra la sezione che di default è nascosta
+            domCache.professoriSection.style.display = 'block';
+            domCache.professoriContainer.innerHTML = '';
+
+            const fragment = document.createDocumentFragment();
 
             matches.forEach((m, idx) => {
                 const card = document.createElement('div');
@@ -824,10 +879,11 @@
                 let scoreA = isPlayed ? m.gol_a : '-';
                 let scoreB = isPlayed ? m.gol_b : '-';
 
-                // Try to infer logos from names if possible, or hardcode/fallback
+                // Cerca i loghi, con fallback specifici per Juve e Milan se mancano
                 const logoA = getLogo(m.squadra_a) || (m.squadra_a.toLowerCase().includes('juve') ? 'assets/logos/juventus.png' : '');
                 const logoB = getLogo(m.squadra_b) || (m.squadra_b.toLowerCase().includes('milan') ? 'assets/logos/milan.png' : '');
 
+                // Determina chi ha vinto per evidenziarlo
                 let classA = '', classB = '';
                 if (isPlayed) {
                     if (m.risultato === 'rigori_a') {
@@ -841,6 +897,7 @@
                     }
                 }
 
+                // Genera l'HTML della partita
                 card.innerHTML = `
                     <div class="match-meta">
                         <span class="match-day">${m.giornata || 'Speciale'}</span>
@@ -855,7 +912,6 @@
                     </div>
                     <div class="match-row ${classB}">
                          <div style="display:flex; align-items:center; gap:10px;">
-                             <!-- Fallback for Milan if missing in assets, handled by onerror in previous code but here we use logic -->
                             ${logoB ? `<img src="${logoB}" class="team-logo-small" alt="" onerror="this.style.display='none'">` : ''}
                             <span>${m.squadra_b}</span>
                         </div>
@@ -863,15 +919,17 @@
                     </div>
                     ${(m.note) ? `<div style="font-size:0.75rem; text-align:right; color:var(--text-muted); margin-top:0.5rem; font-style:italic">${m.note}</div>` : ''}
                 `;
-                container.appendChild(card);
+                fragment.appendChild(card);
             });
+
+            domCache.professoriContainer.appendChild(fragment);
         }
 
+        // Disegna il calendario delle partite del torneo
         function renderMatches(matches) {
-            const container = document.getElementById('matches-container');
-            container.innerHTML = '';
+            domCache.matchesContainer.innerHTML = '';
 
-            // Group by Day (Giornata)
+            // Raggruppa le partite per giornata (Giornata 1, Giornata 2, ecc.)
             const grouped = {};
             matches.forEach(m => {
                 const g = m.giornata || "Altro";
@@ -879,7 +937,7 @@
                 grouped[g].push(m);
             });
 
-            // Sort keys: numbers first, then strings
+            // Ordina le giornate numericamente
             const keys = Object.keys(grouped).sort((a, b) => {
                 const na = parseInt(a);
                 const nb = parseInt(b);
@@ -887,44 +945,46 @@
                 return a.toString().localeCompare(b.toString());
             });
 
+            const fragment = document.createDocumentFragment();
+
             keys.forEach((dayKey, grpIdx) => {
+                // Crea il contenitore per la giornata
                 const groupDiv = document.createElement('div');
                 groupDiv.className = 'match-day-group fade-in-el';
                 groupDiv.style.animationDelay = (grpIdx * 0.1) + 's';
 
+                // Titolo della giornata
                 const title = document.createElement('div');
                 title.className = 'match-day-title';
-                // If it's a number, prepend "Giornata"
                 title.textContent = isNaN(dayKey) ? dayKey : `Giornata ${dayKey}`;
                 groupDiv.appendChild(title);
 
                 const grid = document.createElement('div');
                 grid.className = 'matches-grid';
 
-                grouped[dayKey].forEach((m, idx) => {
+                // Cicla su tutte le partite della giornata
+                grouped[dayKey].forEach((m) => {
                     const card = document.createElement('div');
                     card.className = 'match-card';
-                    // No delay here to avoid cascade effect being too slow
 
                     const isPlayed = !!m.risultato;
-
                     let scoreA = isPlayed ? m.gol_a : '-';
                     let scoreB = isPlayed ? m.gol_b : '-';
-
                     const logoA = getLogo(m.squadra_a);
                     const logoB = getLogo(m.squadra_b);
 
+                    // Calcola chi ha vinto
                     let classA = '', classB = '';
                     if (isPlayed) {
                         if (parseInt(m.gol_a) > parseInt(m.gol_b)) classA = 'winner';
                         else if (parseInt(m.gol_b) > parseInt(m.gol_a)) classB = 'winner';
                         else {
-                            // Penalties?
                             if (m.risultato === 'rigori_a') classA = 'winner';
                             if (m.risultato === 'rigori_b') classB = 'winner';
                         }
                     }
 
+                    // HTML della card partita
                     card.innerHTML = `
                         <div class="match-meta">
                             <span>#${m.id}</span>
@@ -950,18 +1010,22 @@
                 });
 
                 groupDiv.appendChild(grid);
-                container.appendChild(groupDiv);
+                fragment.appendChild(groupDiv);
             });
+
+            domCache.matchesContainer.appendChild(fragment);
         }
 
         // --- PARTICLES & EPIC BACKGROUND ---
+        // Gestisce l'effetto particellare (polvere d'oro) sullo sfondo
         function initParticles() {
             const canvas = document.getElementById('particle-canvas');
-            if (!canvas) return;
+            if (!canvas) return; // Se non c'è il canvas, esce
             const ctx = canvas.getContext('2d');
 
             let particlesArray = [];
 
+            // Adatta il canvas alla dimensione dello schermo
             function resize() {
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
@@ -972,33 +1036,36 @@
             });
             resize();
 
+            // Classe che definisce una singola particella
             class Particle {
                 constructor() {
                     this.x = Math.random() * canvas.width;
                     this.y = Math.random() * canvas.height;
-                    this.size = Math.random() * 2 + 0.1; // Small dust-like
-                    this.speedX = (Math.random() * 0.5) - 0.25;
-                    this.speedY = (Math.random() * 0.5) - 0.25;
-                    this.opacity = Math.random() * 0.5 + 0.1;
-                    this.color = `rgba(251, 191, 36, ${this.opacity})`; // Gold-ish
+                    this.size = Math.random() * 2 + 0.1; // Dimensione variabile
+                    this.speedX = (Math.random() * 0.5) - 0.25; // Velocità orizzontale
+                    this.speedY = (Math.random() * 0.5) - 0.25; // Velocità verticale
+                    this.opacity = Math.random() * 0.5 + 0.1; // Trasparenza
+                    this.color = `rgba(251, 191, 36, ${this.opacity})`; // Colore oro
                 }
+                // Aggiorna la posizione
                 update() {
                     this.x += this.speedX;
                     this.y += this.speedY;
 
-                    // Wrap around
+                    // Se esce dallo schermo, riappare dal lato opposto
                     if (this.x > canvas.width) this.x = 0;
                     if (this.x < 0) this.x = canvas.width;
                     if (this.y > canvas.height) this.y = 0;
                     if (this.y < 0) this.y = canvas.height;
                 }
+                // Disegna la particella
                 draw() {
                     ctx.fillStyle = this.color;
                     ctx.beginPath();
                     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                     ctx.fill();
 
-                    // Optional glow
+                    // Se è grande, aggiungi un alone luminoso
                     if (this.size > 1.5) {
                         ctx.shadowBlur = 10;
                         ctx.shadowColor = "rgba(251, 191, 36, 0.5)";
@@ -1008,27 +1075,31 @@
                 }
             }
 
+            // Crea tutte le particelle
             function createParticles() {
                 particlesArray = [];
-                const numberOfParticles = (canvas.width * canvas.height) / 10000; // Density
+                // Numero particelle in base alla grandezza schermo (densità costante)
+                const numberOfParticles = (canvas.width * canvas.height) / 10000;
                 for (let i = 0; i < numberOfParticles; i++) {
                     particlesArray.push(new Particle());
                 }
             }
 
+            // Loop di animazione che gira continuamente
             function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.clearRect(0, 0, canvas.width, canvas.height); // Pulisce il frame precedente
                 for (let i = 0; i < particlesArray.length; i++) {
-                    particlesArray[i].update();
-                    particlesArray[i].draw();
+                    particlesArray[i].update(); // Muove
+                    particlesArray[i].draw();   // Disegna
                 }
-                requestAnimationFrame(animate);
+                requestAnimationFrame(animate); // Richiede il prossimo frame
             }
 
             createParticles();
             animate();
         }
 
+        // Quando la pagina ha finito di caricare, avvia tutto
         window.addEventListener('load', () => {
             fetchData();
             initParticles();
