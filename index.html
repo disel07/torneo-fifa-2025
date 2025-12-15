@@ -634,6 +634,13 @@
             </div>
         </section>
 
+        <section id="professori-section" style="display:none">
+            <h2>Professori</h2>
+            <div id="professori-container" class="matches-grid">
+                <!-- JS Injected -->
+            </div>
+        </section>
+
         <footer>
             <p id="last-update">Aggiornato: --</p>
         </footer>
@@ -678,6 +685,10 @@
 
                 const allMatches = [...(matchesData.matches || []), ...(matchesData.playoffs || [])];
                 renderMatches(allMatches);
+
+                if (matchesData.professori && matchesData.professori.length > 0) {
+                    renderSpecials(matchesData.professori);
+                }
 
                 document.getElementById('last-update').textContent = 'Ultimo aggiornamento: ' + (standingsData.ultimo_aggiornamento || 'N/A');
                 calculateStats(standingsData.classifica);
@@ -793,6 +804,66 @@
                     <td class="sticky-col points-val">${team.punti}</td>
                 `;
                 tbody.appendChild(tr);
+            });
+        }
+
+        function renderSpecials(matches) {
+            const section = document.getElementById('professori-section');
+            const container = document.getElementById('professori-container');
+            if (!container || !matches || matches.length === 0) return;
+
+            section.style.display = 'block';
+            container.innerHTML = '';
+
+            matches.forEach((m, idx) => {
+                const card = document.createElement('div');
+                card.className = 'match-card fade-in-el';
+                card.style.animationDelay = (idx * 0.1) + 's';
+
+                const isPlayed = !!m.risultato;
+                let scoreA = isPlayed ? m.gol_a : '-';
+                let scoreB = isPlayed ? m.gol_b : '-';
+
+                // Try to infer logos from names if possible, or hardcode/fallback
+                const logoA = getLogo(m.squadra_a) || (m.squadra_a.toLowerCase().includes('juve') ? 'assets/logos/juventus.png' : '');
+                const logoB = getLogo(m.squadra_b) || (m.squadra_b.toLowerCase().includes('milan') ? 'assets/logos/milan.png' : '');
+
+                let classA = '', classB = '';
+                if (isPlayed) {
+                    if (m.risultato === 'rigori_a') {
+                        classA = 'winner';
+                    } else if (m.risultato === 'rigori_b') {
+                        classB = 'winner';
+                    } else if (parseInt(m.gol_a) > parseInt(m.gol_b)) {
+                        classA = 'winner';
+                    } else if (parseInt(m.gol_b) > parseInt(m.gol_a)) {
+                        classB = 'winner';
+                    }
+                }
+
+                card.innerHTML = `
+                    <div class="match-meta">
+                        <span class="match-day">${m.giornata || 'Speciale'}</span>
+                        <span class="match-status ${isPlayed ? 'play-status' : 'status-upcoming'}">${isPlayed ? 'Terminata' : 'Da Giocare'}</span>
+                    </div>
+                    <div class="match-row ${classA}">
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            ${logoA ? `<img src="${logoA}" class="team-logo-small" alt="">` : ''}
+                            <span>${m.squadra_a}</span>
+                        </div>
+                        <div class="score-box">${scoreA}</div>
+                    </div>
+                    <div class="match-row ${classB}">
+                         <div style="display:flex; align-items:center; gap:10px;">
+                             <!-- Fallback for Milan if missing in assets, handled by onerror in previous code but here we use logic -->
+                            ${logoB ? `<img src="${logoB}" class="team-logo-small" alt="" onerror="this.style.display='none'">` : ''}
+                            <span>${m.squadra_b}</span>
+                        </div>
+                        <div class="score-box">${scoreB}</div>
+                    </div>
+                    ${(m.note) ? `<div style="font-size:0.75rem; text-align:right; color:var(--text-muted); margin-top:0.5rem; font-style:italic">${m.note}</div>` : ''}
+                `;
+                container.appendChild(card);
             });
         }
 
