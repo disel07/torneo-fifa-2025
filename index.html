@@ -726,8 +726,11 @@
                 renderTeams(standingsData.classifica);
 
             } catch (e) {
-                // Se c'è un errore, lo scrive nella console del browser
-                console.error("Error:", e);
+                console.error("Dati non disponibili:", e);
+                // User feedback
+                if (domCache.lastUpdate) {
+                    domCache.lastUpdate.innerHTML = "<span style='color:var(--danger-color)'>Errore caricamento dati. Riprova più tardi.</span>";
+                }
             }
         }
 
@@ -1030,9 +1033,15 @@
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
             }
+
+            // Debounce resize
+            let resizeTimeout;
             window.addEventListener('resize', () => {
-                resize();
-                createParticles();
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    resize();
+                    createParticles();
+                }, 100);
             });
             resize();
 
