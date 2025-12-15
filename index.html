@@ -104,16 +104,6 @@
             }
         }
 
-        @keyframes shimmerTitle {
-            0% {
-                background-position: -200%;
-            }
-
-            100% {
-                background-position: 200%;
-            }
-        }
-
         .fade-in-el {
             opacity: 0;
             animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -125,22 +115,16 @@
             text-align: center;
         }
 
-
-
         /* Epic Title Text */
         .epic-title {
             font-family: 'Cinzel', serif;
             font-size: 3.5rem;
-            /* Large but managed */
             line-height: 1;
             font-weight: 900;
             text-transform: uppercase;
             letter-spacing: 0.15em;
-            /* "Piu in lungo" */
             margin: 0 auto 1.5rem;
             text-align: center;
-
-            /* Metallic Gold Gradient */
             background: linear-gradient(to bottom,
                     #bf953f 0%,
                     #fcf6ba 40%,
@@ -151,9 +135,7 @@
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-
             filter: drop-shadow(0 2px 0px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 20px rgba(251, 191, 36, 0.4));
-
             position: relative;
             display: block;
             transition: transform 0.3s;
@@ -167,7 +149,6 @@
         @media (min-width: 768px) {
             .epic-title {
                 font-size: 4.5rem;
-                /* Bigger on desktop to look "long" */
             }
         }
 
@@ -248,8 +229,6 @@
             gap: 0.75rem;
         }
 
-
-
         section {
             margin-bottom: 5rem;
         }
@@ -288,9 +267,13 @@
             text-transform: uppercase;
         }
 
-        th:first-child {
+        /* Alignment Fixes for Table */
+        th:first-child,
+        td:first-child {
             text-align: left;
             padding-left: 2rem;
+            min-width: 200px;
+            /* Ensure space for names */
         }
 
         td {
@@ -302,8 +285,6 @@
         }
 
         td:first-child {
-            text-align: left;
-            padding-left: 2rem;
             color: var(--text-primary);
             font-weight: 600;
             display: flex;
@@ -343,16 +324,32 @@
 
         /* Logos */
         .team-logo-small {
-            width: 48px;
-            height: 48px;
+            width: 32px;
+            height: 32px;
             object-fit: contain;
             filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
         }
 
-        /* Match Cards */
+        /* Matches Grouping */
+        .match-day-group {
+            margin-bottom: 3rem;
+        }
+
+        .match-day-title {
+            font-size: 1rem;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 700;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
         .matches-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 1.5rem;
         }
 
@@ -360,7 +357,7 @@
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            padding: 1.5rem;
+            padding: 1.2rem;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -393,7 +390,7 @@
         .match-meta {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 1.25rem;
+            margin-bottom: 1rem;
             font-size: 0.75rem;
             color: var(--text-muted);
             text-transform: uppercase;
@@ -404,7 +401,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.5rem;
             color: var(--text-secondary);
             font-weight: 500;
         }
@@ -416,9 +413,9 @@
 
         .score-box {
             background: var(--bg-subtle);
-            padding: 0.25rem 0.85rem;
+            padding: 0.25rem 0.6rem;
             border-radius: 6px;
-            min-width: 2.5rem;
+            min-width: 2rem;
             text-align: center;
             font-weight: 600;
             border: 1px solid var(--border-color);
@@ -443,15 +440,10 @@
             border-color: rgba(251, 191, 36, 0.2);
         }
 
-        .match-row img {
-            width: 36px !important;
-            height: 36px !important;
-        }
-
         /* Stats */
         .stats-ticker {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1.5rem;
             margin-bottom: 3rem;
         }
@@ -484,10 +476,11 @@
         }
 
         .stat-team-logo {
-            width: 80px;
-            height: 80px;
+            width: 60px;
+            height: 60px;
             margin-bottom: 0.5rem;
             transition: transform 0.5s;
+            object-fit: contain;
         }
 
         .stat-box:hover .stat-team-logo {
@@ -518,12 +511,10 @@
         @media (max-width: 640px) {
             .container {
                 padding: 2rem 1rem;
-                /* Reduce side padding */
             }
 
             .epic-title {
                 font-size: 2.2rem;
-                /* Much smaller for mobile */
                 letter-spacing: 0.1em;
             }
 
@@ -536,23 +527,21 @@
                 grid-template-columns: 1fr;
             }
 
-            .teams-grid {
-                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-                /* Fit 2 cols on small screens */
-                gap: 1rem;
-            }
-
             th,
             td {
                 padding: 1rem 0.5rem;
-                /* Compact table */
                 font-size: 0.9rem;
             }
 
             th:first-child,
             td:first-child {
                 padding-left: 1rem;
-                /* Less indentation */
+                min-width: 150px;
+            }
+
+            .team-logo-small {
+                width: 24px;
+                height: 24px;
             }
         }
     </style>
@@ -610,8 +599,8 @@
 
         <section>
             <h2>Calendario</h2>
-            <div id="matches-container" class="matches-grid">
-                <!-- JS Injected -->
+            <div id="matches-container">
+                <!-- JS Injected with grouping -->
             </div>
         </section>
 
@@ -627,14 +616,18 @@
             "PSG": "assets/logos/psg.png",
             "Man City": "assets/logos/man_city_v2.png",
             "Bayern": "assets/logos/bayern.png",
-            "Inter": "assets/logos/inter_v2.png"
+            "Inter": "assets/logos/inter_v2.png",
+            "Arsenal": "assets/logos/arsenal.png",
+            "Barcellona": "assets/logos/barcellona.png",
+            "Juventus": "assets/logos/juventus.png",
+            "Juve": "assets/logos/juventus.png"
         };
 
         function getLogo(teamName) {
             for (const key in logoMap) {
                 if (teamName.includes(key)) return logoMap[key];
             }
-            return "";
+            return ""; // Fallback or clear image
         }
 
         // --- MAIN LOGIC ---
@@ -665,18 +658,48 @@
             }
         }
 
+        function calculateStats(ranking) {
+            const statsArea = document.getElementById('stats-area');
+            if (!ranking || ranking.length === 0) return;
+
+            // Best Attack
+            const bestAttack = [...ranking].sort((a, b) => b.gol_fatti - a.gol_fatti)[0];
+            // Best Defense
+            const bestDefense = [...ranking].sort((a, b) => a.gol_subiti - b.gol_subiti)[0]; // Lowest is better
+            // Most Wins
+            const mostWins = [...ranking].sort((a, b) => b.vittorie - a.vittorie)[0];
+
+            statsArea.innerHTML = `
+                <div class="stat-box fade-in-el" style="animation-delay: 0.1s">
+                    <div class="stat-label">Miglior Attacco</div>
+                    ${getLogo(bestAttack.squadra) ? `<img src="${getLogo(bestAttack.squadra)}" class="stat-team-logo" alt="">` : ''}
+                    <div class="stat-value">${bestAttack.gol_fatti}</div>
+                    <div class="stat-sub">Gol Fatti (${bestAttack.squadra.split('(')[0]})</div>
+                </div>
+                <div class="stat-box fade-in-el" style="animation-delay: 0.2s">
+                     <div class="stat-label">Miglior Difesa</div>
+                    ${getLogo(bestDefense.squadra) ? `<img src="${getLogo(bestDefense.squadra)}" class="stat-team-logo" alt="">` : ''}
+                    <div class="stat-value">${bestDefense.gol_subiti}</div>
+                    <div class="stat-sub">Gol Subiti (${bestDefense.squadra.split('(')[0]})</div>
+                </div>
+                 <div class="stat-box fade-in-el" style="animation-delay: 0.3s">
+                     <div class="stat-label">Capolista</div>
+                    ${getLogo(ranking[0].squadra) ? `<img src="${getLogo(ranking[0].squadra)}" class="stat-team-logo" alt="">` : ''}
+                    <div class="stat-value">${ranking[0].punti}</div>
+                    <div class="stat-sub">Punti (${ranking[0].squadra.split('(')[0]})</div>
+                </div>
+            `;
+        }
+
         function renderTeams(data) {
             const container = document.getElementById('teams-container');
             if (!container) return;
             container.innerHTML = '';
 
-            // Sort by name or points? Let's sort alphabetically for presentation or by standings
-            // data is already sorted by standings from backend mostly
-
-            data.forEach(team => {
+            data.forEach((team, idx) => {
                 const card = document.createElement('div');
                 card.className = 'team-card fade-in-el';
-                card.style.animationDelay = '0.2s';
+                card.style.animationDelay = (idx * 0.1) + 's';
 
                 const logo = getLogo(team.squadra);
 
@@ -689,7 +712,7 @@
                     player = parts[0].trim();
                     club = parts[1].replace(')', '').trim();
                 } else {
-                    club = team.squadra; // fallback
+                    club = team.squadra;
                 }
 
                 card.innerHTML = `
@@ -723,9 +746,11 @@
 
                 tr.innerHTML = `
                     <td>
-                        ${rankContent}
-                        ${logo ? `<img src="${logo}" class="team-logo-small" alt="">` : ''}
-                        <span>${team.squadra}</span>
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            ${rankContent}
+                            ${logo ? `<img src="${logo}" class="team-logo-small" alt="">` : ''}
+                            <span>${team.squadra}</span>
+                        </div>
                     </td>
                     <td>${team.giornate}</td>
                     <td>${team.vittorie || 0}</td>
@@ -745,187 +770,90 @@
             const container = document.getElementById('matches-container');
             container.innerHTML = '';
 
-            matches.sort((a, b) => {
-                const idA = typeof a.id === 'string' ? 999 : a.id;
-                const idB = typeof b.id === 'string' ? 999 : b.id;
-                return idA - idB;
+            // Group by Day (Giornata)
+            const grouped = {};
+            matches.forEach(m => {
+                const g = m.giornata || "Altro";
+                if (!grouped[g]) grouped[g] = [];
+                grouped[g].push(m);
             });
 
-            matches.forEach((m, index) => {
-                const card = document.createElement('div');
-                card.className = 'match-card fade-in-el';
-                card.style.animationDelay = `${index * 0.05 + 0.3}s`;
+            // Sort keys: numbers first, then strings
+            const keys = Object.keys(grouped).sort((a, b) => {
+                const na = parseInt(a);
+                const nb = parseInt(b);
+                if (!isNaN(na) && !isNaN(nb)) return na - nb;
+                return a.toString().localeCompare(b.toString());
+            });
 
-                // Tilt Effect Handler
-                card.addEventListener('mousemove', handleTilt);
-                card.addEventListener('mouseleave', resetTilt);
+            keys.forEach((dayKey, grpIdx) => {
+                const groupDiv = document.createElement('div');
+                groupDiv.className = 'match-day-group fade-in-el';
+                groupDiv.style.animationDelay = (grpIdx * 0.1) + 's';
 
-                const isPlayed = !!m.risultato;
-                const dayText = typeof m.giornata === 'number' ? `Giornata ${m.giornata}` : m.giornata;
+                const title = document.createElement('div');
+                title.className = 'match-day-title';
+                // If it's a number, prepend "Giornata"
+                title.textContent = isNaN(dayKey) ? dayKey : `Giornata ${dayKey}`;
+                groupDiv.appendChild(title);
 
-                let scoreA = isPlayed ? m.gol_a : '-';
-                let scoreB = isPlayed ? m.gol_b : '-';
+                const grid = document.createElement('div');
+                grid.className = 'matches-grid';
 
-                // Logos for match card
-                const logoA = getLogo(m.squadra_a);
-                const logoB = getLogo(m.squadra_b);
+                grouped[dayKey].forEach((m, idx) => {
+                    const card = document.createElement('div');
+                    card.className = 'match-card';
+                    // No delay here to avoid cascade effect being too slow
 
-                let classA = '', classB = '';
-                if (isPlayed) {
-                    if (m.gol_a > m.gol_b) classA = 'winner';
-                    else if (m.gol_b > m.gol_a) classB = 'winner';
-                }
+                    const isPlayed = !!m.risultato;
 
-                card.innerHTML = `
-                    <div class="match-meta">
-                        <span>${dayText}</span>
-                        <span class="match-status ${isPlayed ? 'play-status' : 'status-upcoming'}">${isPlayed ? 'Terminata' : 'Da Giocare'}</span>
-                    </div>
-                    <div class="match-row ${classA}">
-                        <div style="display:flex; align-items:center; gap:10px;">
-                            ${logoA ? `<img src="${logoA}" style="width:24px;height:24px;" alt="">` : ''}
-                            <span>${m.squadra_a}</span>
+                    let scoreA = isPlayed ? m.gol_a : '-';
+                    let scoreB = isPlayed ? m.gol_b : '-';
+
+                    const logoA = getLogo(m.squadra_a);
+                    const logoB = getLogo(m.squadra_b);
+
+                    let classA = '', classB = '';
+                    if (isPlayed) {
+                        if (parseInt(m.gol_a) > parseInt(m.gol_b)) classA = 'winner';
+                        else if (parseInt(m.gol_b) > parseInt(m.gol_a)) classB = 'winner';
+                        else {
+                            // Penalties?
+                            if (m.risultato === 'rigori_a') classA = 'winner';
+                            if (m.risultato === 'rigori_b') classB = 'winner';
+                        }
+                    }
+
+                    card.innerHTML = `
+                        <div class="match-meta">
+                            <span>#${m.id}</span>
+                            <span class="match-status ${isPlayed ? 'play-status' : 'status-upcoming'}">${isPlayed ? 'Terminata' : 'Da Giocare'}</span>
                         </div>
-                        <span class="score-box">${scoreA}</span>
-                    </div>
-                    <div class="match-row ${classB}">
-                         <div style="display:flex; align-items:center; gap:10px;">
-                            ${logoB ? `<img src="${logoB}" style="width:24px;height:24px;" alt="">` : ''}
-                            <span>${m.squadra_b}</span>
+                        <div class="match-row ${classA}">
+                            <div style="display:flex; align-items:center; gap:10px;">
+                                ${logoA ? `<img src="${logoA}" style="width:24px;height:24px;object-fit:contain;" alt="">` : ''}
+                                <span>${m.squadra_a}</span>
+                            </div>
+                            <span class="score-box">${scoreA}</span>
                         </div>
-                        <span class="score-box">${scoreB}</span>
-                    </div>
-                    ${(m.risultato && m.risultato.includes('rigori')) ? '<div style="font-size:0.75rem; text-align:right; color:var(--text-muted); margin-top:0.5rem; font-style:italic">DCR</div>' : ''}
-                `;
-                container.appendChild(card);
+                        <div class="match-row ${classB}">
+                             <div style="display:flex; align-items:center; gap:10px;">
+                                ${logoB ? `<img src="${logoB}" style="width:24px;height:24px;object-fit:contain;" alt="">` : ''}
+                                <span>${m.squadra_b}</span>
+                            </div>
+                            <span class="score-box">${scoreB}</span>
+                        </div>
+                        ${(m.risultato && m.risultato.includes('rigori')) ? '<div style="font-size:0.75rem; text-align:right; color:var(--text-muted); margin-top:0.5rem; font-style:italic">Vittoria ai rigori</div>' : ''}
+                    `;
+                    grid.appendChild(card);
+                });
+
+                groupDiv.appendChild(grid);
+                container.appendChild(groupDiv);
             });
         }
 
-        function calculateStats(ranking) {
-            if (!ranking.length) return;
-            let topScorerTeam = ranking[0];
-            let defenseTeam = ranking[0];
-
-            ranking.forEach(t => {
-                if (t.gol_fatti > topScorerTeam.gol_fatti) topScorerTeam = t;
-                if (t.gol_subiti < defenseTeam.gol_subiti) defenseTeam = t;
-            });
-
-            const statsArea = document.getElementById('stats-area');
-            const logoGf = getLogo(topScorerTeam.squadra);
-            const logoGs = getLogo(defenseTeam.squadra);
-
-            // Only update if empty to prevent re-animation on poll
-            if (statsArea.children.length === 0) {
-                statsArea.innerHTML = `
-                    <div class="stat-box fade-in-el" style="animation-delay: 0.1s">
-                        <div class="stat-label">Miglior Attacco</div>
-                        ${logoGf ? `<img src="${logoGf}" class="stat-team-logo" alt="logo">` : ''}
-                        <div class="stat-value">${topScorerTeam.squadra}</div>
-                        <div class="stat-sub"><span id="count-gf">0</span> Goal Fatti</div>
-                    </div>
-                    <div class="stat-box fade-in-el" style="animation-delay: 0.2s">
-                        <div class="stat-label">Miglior Difesa</div>
-                        ${logoGs ? `<img src="${logoGs}" class="stat-team-logo" alt="logo">` : ''}
-                        <div class="stat-value">${defenseTeam.squadra}</div>
-                        <div class="stat-sub"><span id="count-gs">0</span> Goal Subiti</div>
-                    </div>
-                `;
-                animateValue("count-gf", 0, topScorerTeam.gol_fatti, 2000);
-                animateValue("count-gs", 0, defenseTeam.gol_subiti, 2000);
-            }
-        }
-
-        function animateValue(id, start, end, duration) {
-            const obj = document.getElementById(id);
-            if (!obj) return;
-            let current = start;
-            const range = end - start;
-            if (range === 0) { obj.textContent = end; return; }
-            const increment = end > start ? 1 : -1;
-            const stepTime = Math.max(Math.abs(Math.floor(duration / range)), 20);
-
-            const timer = setInterval(function () {
-                current += increment;
-                obj.textContent = current;
-                if (current == end) clearInterval(timer);
-            }, stepTime);
-        }
-
-        // --- VISUAL EFFECTS ---
-
-        // 3D Tilt for Cards
-        function handleTilt(e) {
-            const card = e.currentTarget;
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-
-            const rotateX = ((y - centerY) / centerY) * -5; // Max 5deg
-            const rotateY = ((x - centerX) / centerX) * 5;
-
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
-        }
-
-        function resetTilt(e) {
-            e.currentTarget.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
-        }
-
-        // Gold Particles
-        (function initParticles() {
-            const canvas = document.getElementById('particle-canvas');
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            let width, height;
-            let particles = [];
-
-            function resize() {
-                width = canvas.width = window.innerWidth;
-                height = canvas.height = window.innerHeight;
-            }
-            window.addEventListener('resize', resize);
-            resize();
-
-            class Particle {
-                constructor() {
-                    this.reset();
-                }
-                reset() {
-                    this.x = Math.random() * width;
-                    this.y = Math.random() * height;
-                    this.size = Math.random() * 2; // Tiny dust
-                    this.speedX = (Math.random() - 0.5) * 0.5;
-                    this.speedY = (Math.random() - 0.5) * 0.5;
-                    this.alpha = Math.random() * 0.5 + 0.1;
-                }
-                update() {
-                    this.x += this.speedX;
-                    this.y += this.speedY;
-                    if (this.x < 0 || this.x > width || this.y < 0 || this.y > height) this.reset();
-                }
-                draw() {
-                    ctx.fillStyle = `rgba(251, 191, 36, ${this.alpha})`;
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-            }
-
-            for (let i = 0; i < 100; i++) particles.push(new Particle());
-
-            function animate() {
-                ctx.clearRect(0, 0, width, height);
-                particles.forEach(p => { p.update(); p.draw(); });
-                requestAnimationFrame(animate);
-            }
-            animate();
-        })();
-
-        setInterval(fetchData, 30000);
-        fetchData();
+        window.addEventListener('load', fetchData);
     </script>
 </body>
 
