@@ -260,9 +260,9 @@
             "giornata": "Playoff - Quarti",
             "squadra_a": "Filippo (PSG)",
             "squadra_b": "Giuseppe (Bayern)",
-            "gol_a": 1,
-            "gol_b": 1,
-            "risultato": "rigori_a"
+            "gol_a": 4,
+            "gol_b": 0,
+            "risultato": "90"
         },
         {
             "id": "QF2",
@@ -279,7 +279,7 @@
             "type": "semifinale",
             "giornata": "Playoff - Semifinali",
             "squadra_a": "Alessandro (Inter)",
-            "squadra_b": "Filippo (PSG)",
+            "squadra_b": "Vincente QF2",
             "gol_a": null,
             "gol_b": null,
             "risultato": null
@@ -289,17 +289,17 @@
             "type": "semifinale",
             "giornata": "Playoff - Semifinali",
             "squadra_a": "Guido (Real Madrid)",
-            "squadra_b": "Vincente QF2",
-            "gol_a": null,
-            "gol_b": null,
-            "risultato": null
+            "squadra_b": "Filippo (PSG)",
+            "gol_a": 1,
+            "gol_b": 1,
+            "risultato": "rigori_b"
         },
         {
             "id": "FINAL",
             "type": "finalissima",
             "giornata": "Finalissima",
             "squadra_a": "Vincente SF1",
-            "squadra_b": "Vincente SF2",
+            "squadra_b": "Filippo (PSG)",
             "gol_a": null,
             "gol_b": null,
             "risultato": null
