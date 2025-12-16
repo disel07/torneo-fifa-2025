@@ -113,9 +113,9 @@
             "giornata": 4,
             "squadra_a": "Mattia (Barcellona)",
             "squadra_b": "Giuseppe (Bayern)",
-            "gol_a": null,
-            "gol_b": null,
-            "risultato": null
+            "gol_a": 0,
+            "gol_b": 6,
+            "risultato": "90"
         },
         {
             "id": 11,
