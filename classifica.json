@@ -41,15 +41,15 @@
         },
         {
             "squadra": "Luca (Juventus)",
-            "giornate": 5,
-            "vittorie": 2,
+            "giornate": 6,
+            "vittorie": 3,
             "vittorie_rig": 1,
             "sconfitte_rig": 1,
             "sconfitte": 1,
-            "gol_fatti": 8,
+            "gol_fatti": 12,
             "gol_subiti": 5,
-            "differenza_reti": 3,
-            "punti": 9,
+            "differenza_reti": 7,
+            "punti": 12,
             "posizione": 4
         },
         {
@@ -67,14 +67,14 @@
         },
         {
             "squadra": "Giuseppe (Bayern)",
-            "giornate": 5,
+            "giornate": 6,
             "vittorie": 1,
             "vittorie_rig": 1,
             "sconfitte_rig": 0,
-            "sconfitte": 3,
+            "sconfitte": 4,
             "gol_fatti": 7,
-            "gol_subiti": 8,
-            "differenza_reti": -1,
+            "gol_subiti": 12,
+            "differenza_reti": -5,
             "punti": 5,
             "posizione": 6
         },
@@ -105,5 +105,5 @@
             "posizione": 8
         }
     ],
-    "ultimo_aggiornamento": "2025-12-16 10:29:49"
+    "ultimo_aggiornamento": "2025-12-16 10:40:29"
 }
