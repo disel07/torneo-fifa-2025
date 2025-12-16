@@ -607,6 +607,37 @@
             font-weight: 700;
         }
 
+        /* Mobile Bracket Fixes */
+        @media (max-width: 640px) {
+            .bracket-container {
+                justify-content: flex-start;
+                /* Fixes left-side clipping on scroll */
+                padding: 1rem;
+                gap: 1rem;
+            }
+
+            .bracket-match {
+                width: 160px;
+                /* Slightly narrower on mobile */
+                padding: 0.5rem;
+            }
+
+            .bracket-match.final-match {
+                width: 180px;
+            }
+
+            .bracket-team-name {
+                max-width: 90px;
+                /* Adjust truncation for narrower cards */
+                font-size: 0.75rem;
+            }
+
+            .bracket-score {
+                font-size: 0.75rem;
+                min-width: 1.2rem;
+            }
+        }
+
         .bracket-match {
             background: rgba(24, 24, 27, 0.8);
             border: 1px solid var(--border-color);
