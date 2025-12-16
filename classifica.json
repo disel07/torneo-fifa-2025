@@ -28,15 +28,15 @@
         },
         {
             "squadra": "Filippo (PSG)",
-            "giornate": 5,
+            "giornate": 6,
             "vittorie": 3,
-            "vittorie_rig": 1,
+            "vittorie_rig": 2,
             "sconfitte_rig": 1,
             "sconfitte": 0,
-            "gol_fatti": 11,
-            "gol_subiti": 2,
+            "gol_fatti": 12,
+            "gol_subiti": 3,
             "differenza_reti": 9,
-            "punti": 12,
+            "punti": 14,
             "posizione": 3
         },
         {
@@ -93,17 +93,17 @@
         },
         {
             "squadra": "Diell (Man City)",
-            "giornate": 5,
+            "giornate": 6,
             "vittorie": 0,
             "vittorie_rig": 0,
-            "sconfitte_rig": 0,
+            "sconfitte_rig": 1,
             "sconfitte": 5,
-            "gol_fatti": 1,
-            "gol_subiti": 23,
+            "gol_fatti": 2,
+            "gol_subiti": 24,
             "differenza_reti": -22,
-            "punti": 0,
+            "punti": 1,
             "posizione": 8
         }
     ],
-    "ultimo_aggiornamento": "2025-12-16 10:13:33"
+    "ultimo_aggiornamento": "2025-12-16 10:29:49"
 }
