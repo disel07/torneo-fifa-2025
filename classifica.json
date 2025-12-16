@@ -2,28 +2,28 @@
     "classifica": [
         {
             "squadra": "Alessandro (Inter)",
-            "giornate": 6,
-            "vittorie": 5,
+            "giornate": 7,
+            "vittorie": 6,
             "vittorie_rig": 0,
             "sconfitte_rig": 0,
             "sconfitte": 1,
-            "gol_fatti": 15,
+            "gol_fatti": 17,
             "gol_subiti": 3,
-            "differenza_reti": 12,
-            "punti": 15,
+            "differenza_reti": 14,
+            "punti": 18,
             "posizione": 1
         },
         {
             "squadra": "Guido (Real Madrid)",
-            "giornate": 6,
+            "giornate": 7,
             "vittorie": 4,
             "vittorie_rig": 1,
-            "sconfitte_rig": 0,
+            "sconfitte_rig": 1,
             "sconfitte": 1,
-            "gol_fatti": 13,
-            "gol_subiti": 2,
+            "gol_fatti": 14,
+            "gol_subiti": 3,
             "differenza_reti": 11,
-            "punti": 14,
+            "punti": 15,
             "posizione": 2
         },
         {
@@ -41,15 +41,15 @@
         },
         {
             "squadra": "Luca (Juventus)",
-            "giornate": 6,
+            "giornate": 7,
             "vittorie": 3,
-            "vittorie_rig": 1,
+            "vittorie_rig": 2,
             "sconfitte_rig": 1,
             "sconfitte": 1,
-            "gol_fatti": 12,
-            "gol_subiti": 5,
+            "gol_fatti": 13,
+            "gol_subiti": 6,
             "differenza_reti": 7,
-            "punti": 12,
+            "punti": 14,
             "posizione": 4
         },
         {
@@ -80,14 +80,14 @@
         },
         {
             "squadra": "Mattia (Barcellona)",
-            "giornate": 6,
+            "giornate": 7,
             "vittorie": 1,
             "vittorie_rig": 0,
             "sconfitte_rig": 0,
-            "sconfitte": 5,
+            "sconfitte": 6,
             "gol_fatti": 4,
-            "gol_subiti": 19,
-            "differenza_reti": -15,
+            "gol_subiti": 21,
+            "differenza_reti": -17,
             "punti": 3,
             "posizione": 7
         },
@@ -105,5 +105,5 @@
             "posizione": 8
         }
     ],
-    "ultimo_aggiornamento": "2025-12-16 10:40:29"
+    "ultimo_aggiornamento": "2025-12-16 11:05:46"
 }
