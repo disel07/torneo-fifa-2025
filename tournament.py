@@ -277,76 +277,84 @@ def manage_playoffs(ranking):
     winner_qf1 = get_winner(qf1)
     winner_qf2 = get_winner(qf2)
     
-    # SF1: 1st vs Winner QF1
+    # SF1: 1st vs Winner QF2 (4th/5th) - Corrected Logic
     sf1 = find_match("SF1")
-    if winner_qf1:
-        target_a = ranking[0]["squadra"] # 1st
-        target_b = winner_qf1
-        
-        if not sf1:
-            print(f"Generazione Semifinale 1: {target_a} vs {target_b}")
-            sf1 = {
-                "id": "SF1",
-                "type": "semifinale",
-                "giornata": "Playoff - Semifinali",
-                "squadra_a": target_a,
-                "squadra_b": target_b,
-                "gol_a": None, "gol_b": None, "risultato": None
-            }
-            playoffs.append(sf1)
-            changed = True
-        else:
-             # Update if placeholders change (unlikely)
-             if sf1["squadra_b"] != target_b:
-                 sf1["squadra_b"] = target_b
-                 changed = True
+    target_a_sf1 = ranking[0]["squadra"] # 1st
+    target_b_sf1 = winner_qf2 if winner_qf2 else "Vincente QF2"
+    
+    if not sf1:
+        print(f"Generazione Semifinale 1: {target_a_sf1} vs {target_b_sf1}")
+        sf1 = {
+            "id": "SF1",
+            "type": "semifinale",
+            "giornata": "Playoff - Semifinali",
+            "squadra_a": target_a_sf1,
+            "squadra_b": target_b_sf1,
+            "gol_a": None, "gol_b": None, "risultato": None
+        }
+        playoffs.append(sf1)
+        changed = True
+    else:
+         # Update placeholders or winner progression
+         if sf1["squadra_a"] != target_a_sf1:
+             sf1["squadra_a"] = target_a_sf1
+             changed = True
+         if sf1["squadra_b"] != target_b_sf1:
+             sf1["squadra_b"] = target_b_sf1
+             changed = True
 
-    # SF2: 2nd vs Winner QF2
+    # SF2: 2nd vs Winner QF1 (3rd/6th) - Corrected Logic
     sf2 = find_match("SF2")
-    if winner_qf2:
-        target_a = ranking[1]["squadra"] # 2nd
-        target_b = winner_qf2
-        
-        if not sf2:
-            print(f"Generazione Semifinale 2: {target_a} vs {target_b}")
-            sf2 = {
-                "id": "SF2",
-                "type": "semifinale",
-                "giornata": "Playoff - Semifinali",
-                "squadra_a": target_a,
-                "squadra_b": target_b,
-                "gol_a": None, "gol_b": None, "risultato": None
-            }
-            playoffs.append(sf2)
-            changed = True
-        else:
-             if sf2["squadra_b"] != target_b:
-                 sf2["squadra_b"] = target_b
-                 changed = True
+    target_a_sf2 = ranking[1]["squadra"] # 2nd
+    target_b_sf2 = winner_qf1 if winner_qf1 else "Vincente QF1"
+    
+    if not sf2:
+        print(f"Generazione Semifinale 2: {target_a_sf2} vs {target_b_sf2}")
+        sf2 = {
+            "id": "SF2",
+            "type": "semifinale",
+            "giornata": "Playoff - Semifinali",
+            "squadra_a": target_a_sf2,
+            "squadra_b": target_b_sf2,
+            "gol_a": None, "gol_b": None, "risultato": None
+        }
+        playoffs.append(sf2)
+        changed = True
+    else:
+         if sf2["squadra_a"] != target_a_sf2:
+             sf2["squadra_a"] = target_a_sf2
+             changed = True
+         if sf2["squadra_b"] != target_b_sf2:
+             sf2["squadra_b"] = target_b_sf2
+             changed = True
     
     # --- FINALISSIMA ---
     winner_sf1 = get_winner(sf1)
     winner_sf2 = get_winner(sf2)
     
     final = find_match("FINAL")
-    if winner_sf1 and winner_sf2:
-        if not final:
-            print(f"Generazione Finalissima: {winner_sf1} vs {winner_sf2}")
-            final = {
-                "id": "FINAL",
-                "type": "finalissima",
-                "giornata": "Finalissima",
-                "squadra_a": winner_sf1,
-                "squadra_b": winner_sf2,
-                "gol_a": None, "gol_b": None, "risultato": None
-            }
-            playoffs.append(final)
-            changed = True
-        else:
-             if final["squadra_a"] != winner_sf1 or final["squadra_b"] != winner_sf2:
-                 final["squadra_a"] = winner_sf1
-                 final["squadra_b"] = winner_sf2
-                 changed = True
+    target_a_final = winner_sf1 if winner_sf1 else "Vincente SF1"
+    target_b_final = winner_sf2 if winner_sf2 else "Vincente SF2"
+
+    if not final:
+        print(f"Generazione Finale Playoff: {target_a_final} vs {target_b_final}")
+        final = {
+            "id": "FINAL",
+            "type": "finalissima",
+            "giornata": "Finalissima",
+            "squadra_a": target_a_final,
+            "squadra_b": target_b_final,
+            "gol_a": None, "gol_b": None, "risultato": None
+        }
+        playoffs.append(final)
+        changed = True
+    else:
+        if final["squadra_a"] != target_a_final:
+             final["squadra_a"] = target_a_final
+             changed = True
+        if final["squadra_b"] != target_b_final:
+             final["squadra_b"] = target_b_final
+             changed = True
 
     if changed:
         data["playoffs"] = playoffs

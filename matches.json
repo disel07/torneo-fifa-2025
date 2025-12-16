@@ -273,6 +273,36 @@
             "gol_a": null,
             "gol_b": null,
             "risultato": null
+        },
+        {
+            "id": "SF1",
+            "type": "semifinale",
+            "giornata": "Playoff - Semifinali",
+            "squadra_a": "Alessandro (Inter)",
+            "squadra_b": "Vincente QF2",
+            "gol_a": null,
+            "gol_b": null,
+            "risultato": null
+        },
+        {
+            "id": "SF2",
+            "type": "semifinale",
+            "giornata": "Playoff - Semifinali",
+            "squadra_a": "Guido (Real Madrid)",
+            "squadra_b": "Vincente QF1",
+            "gol_a": null,
+            "gol_b": null,
+            "risultato": null
+        },
+        {
+            "id": "FINAL",
+            "type": "finalissima",
+            "giornata": "Finalissima",
+            "squadra_a": "Vincente SF1",
+            "squadra_b": "Vincente SF2",
+            "gol_a": null,
+            "gol_b": null,
+            "risultato": null
         }
     ],
     "professori": [
