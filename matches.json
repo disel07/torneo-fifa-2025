@@ -258,16 +258,6 @@
             "id": "QF1",
             "type": "quarti",
             "giornata": "Playoff - Quarti",
-            "squadra_a": "Filippo (PSG)",
-            "squadra_b": "Giuseppe (Bayern)",
-            "gol_a": 4,
-            "gol_b": 0,
-            "risultato": "90"
-        },
-        {
-            "id": "QF2",
-            "type": "quarti",
-            "giornata": "Playoff - Quarti",
             "squadra_a": "Luca (Juventus)",
             "squadra_b": "Leonardo (Arsenal)",
             "gol_a": null,
@@ -275,11 +265,21 @@
             "risultato": null
         },
         {
+            "id": "QF2",
+            "type": "quarti",
+            "giornata": "Playoff - Quarti",
+            "squadra_a": "Filippo (PSG)",
+            "squadra_b": "Giuseppe (Bayern)",
+            "gol_a": 4,
+            "gol_b": 0,
+            "risultato": "90"
+        },
+        {
             "id": "SF1",
             "type": "semifinale",
             "giornata": "Playoff - Semifinali",
             "squadra_a": "Alessandro (Inter)",
-            "squadra_b": "Vincente QF2",
+            "squadra_b": "Vincente QF1",
             "gol_a": null,
             "gol_b": null,
             "risultato": null

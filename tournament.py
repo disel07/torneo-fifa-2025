@@ -242,31 +242,31 @@ def manage_playoffs(ranking):
     changed = False
 
     # --- QUARTI DI FINALE ---
-    # QF1: 3rd vs 6th
+    # QF1: 4th vs 5th (Standard Layout: Top Bracket feeds 1st Seed)
     qf1 = find_match("QF1")
     if not qf1:
-        print("Generazione Quarto 1: 3° vs 6°")
+        print("Generazione Quarto 1: 4° vs 5°")
         qf1 = {
             "id": "QF1",
             "type": "quarti",
             "giornata": "Playoff - Quarti",
-            "squadra_a": ranking[2]["squadra"], # 3rd
-            "squadra_b": ranking[5]["squadra"], # 6th
+            "squadra_a": ranking[3]["squadra"], # 4th
+            "squadra_b": ranking[4]["squadra"], # 5th
             "gol_a": None, "gol_b": None, "risultato": None
         }
         playoffs.append(qf1)
         changed = True
 
-    # QF2: 4th vs 5th
+    # QF2: 3rd vs 6th (Standard Layout: Bottom Bracket feeds 2nd Seed)
     qf2 = find_match("QF2")
     if not qf2:
-        print("Generazione Quarto 2: 4° vs 5°")
+        print("Generazione Quarto 2: 3° vs 6°")
         qf2 = {
             "id": "QF2",
             "type": "quarti",
             "giornata": "Playoff - Quarti",
-            "squadra_a": ranking[3]["squadra"], # 4th
-            "squadra_b": ranking[4]["squadra"], # 5th
+            "squadra_a": ranking[2]["squadra"], # 3rd
+            "squadra_b": ranking[5]["squadra"], # 6th
             "gol_a": None, "gol_b": None, "risultato": None
         }
         playoffs.append(qf2)
@@ -277,10 +277,10 @@ def manage_playoffs(ranking):
     winner_qf1 = get_winner(qf1)
     winner_qf2 = get_winner(qf2)
     
-    # SF1: 1st vs Winner QF2 (4th/5th) - Target Logic
+    # SF1: 1st vs Winner QF1 (4th/5th)
     sf1 = find_match("SF1")
     target_a_sf1 = ranking[0]["squadra"] # 1st
-    target_b_sf1 = winner_qf2 if winner_qf2 else "Vincente QF2"
+    target_b_sf1 = winner_qf1 if winner_qf1 else "Vincente QF1"
     
     if not sf1:
         print(f"Generazione Semifinale 1: {target_a_sf1} vs {target_b_sf1}")
@@ -303,10 +303,10 @@ def manage_playoffs(ranking):
              sf1["squadra_b"] = target_b_sf1
              changed = True
 
-    # SF2: 2nd vs Winner QF1 (3rd/6th) - Target Logic
+    # SF2: 2nd vs Winner QF2 (3rd/6th)
     sf2 = find_match("SF2")
     target_a_sf2 = ranking[1]["squadra"] # 2nd
-    target_b_sf2 = winner_qf1 if winner_qf1 else "Vincente QF1"
+    target_b_sf2 = winner_qf2 if winner_qf2 else "Vincente QF2"
     
     if not sf2:
         print(f"Generazione Semifinale 2: {target_a_sf2} vs {target_b_sf2}")
