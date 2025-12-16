@@ -131,9 +131,9 @@
             "giornata": 4,
             "squadra_a": "Filippo (PSG)",
             "squadra_b": "Guido (Real Madrid)",
-            "gol_a": null,
-            "gol_b": null,
-            "risultato": null
+            "gol_a": 1,
+            "gol_b": 1,
+            "risultato": "rigori_b"
         },
         {
             "id": 25,
