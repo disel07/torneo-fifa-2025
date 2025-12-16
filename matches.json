@@ -253,7 +253,28 @@
             "risultato": "rigori_a"
         }
     ],
-    "playoffs": [],
+    "playoffs": [
+        {
+            "id": "QF1",
+            "type": "quarti",
+            "giornata": "Playoff - Quarti",
+            "squadra_a": "Filippo (PSG)",
+            "squadra_b": "Giuseppe (Bayern)",
+            "gol_a": null,
+            "gol_b": null,
+            "risultato": null
+        },
+        {
+            "id": "QF2",
+            "type": "quarti",
+            "giornata": "Playoff - Quarti",
+            "squadra_a": "Luca (Juventus)",
+            "squadra_b": "Leonardo (Arsenal)",
+            "gol_a": null,
+            "gol_b": null,
+            "risultato": null
+        }
+    ],
     "professori": [
         {
             "id": "special_1",
