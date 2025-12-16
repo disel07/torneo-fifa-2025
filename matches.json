@@ -185,18 +185,18 @@
             "giornata": 6,
             "squadra_a": "Mattia (Barcellona)",
             "squadra_b": "Guido (Real Madrid)",
-            "gol_a": null,
-            "gol_b": null,
-            "risultato": null
+            "gol_a": 0,
+            "gol_b": 5,
+            "risultato": "90"
         },
         {
             "id": 17,
             "giornata": 6,
             "squadra_a": "Leonardo (Arsenal)",
             "squadra_b": "Alessandro (Inter)",
-            "gol_a": null,
-            "gol_b": null,
-            "risultato": null
+            "gol_a": 0,
+            "gol_b": 2,
+            "risultato": "90"
         },
         {
             "id": 18,
