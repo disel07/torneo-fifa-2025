@@ -203,9 +203,9 @@
             "giornata": 6,
             "squadra_a": "Diell (Man City)",
             "squadra_b": "Filippo (PSG)",
-            "gol_a": null,
-            "gol_b": null,
-            "risultato": null
+            "gol_a": 1,
+            "gol_b": 1,
+            "risultato": "rigori_b"
         },
         {
             "id": 27,
