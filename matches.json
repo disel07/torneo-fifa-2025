@@ -239,9 +239,9 @@
             "giornata": 7,
             "squadra_a": "Giuseppe (Bayern)",
             "squadra_b": "Diell (Man City)",
-            "gol_a": null,
-            "gol_b": null,
-            "risultato": null
+            "gol_a": 1,
+            "gol_b": 1,
+            "risultato": "rigori_a"
         },
         {
             "id": 28,
