@@ -574,6 +574,148 @@
                 height: 24px;
             }
         }
+
+        /* Bracket Structure */
+        .bracket-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin: 4rem 0;
+            padding: 2rem;
+            background: radial-gradient(circle, rgba(251, 191, 36, 0.05) 0%, transparent 70%);
+            border-radius: 20px;
+            overflow-x: auto;
+        }
+
+        .bracket-round {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            gap: 2rem;
+        }
+
+        .bracket-round-title {
+            text-align: center;
+            color: var(--accent-gold);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .bracket-match {
+            background: rgba(24, 24, 27, 0.8);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.8rem;
+            width: 200px;
+            position: relative;
+            transition: all 0.3s;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .bracket-match:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.2);
+            transform: scale(1.02);
+        }
+
+        .bracket-match.final-match {
+            width: 240px;
+            border-color: var(--accent-gold);
+            background: linear-gradient(135deg, rgba(24, 24, 27, 0.9) 0%, rgba(50, 40, 10, 0.4) 100%);
+        }
+
+        .bracket-match.final-match .bracket-team {
+            font-size: 1rem;
+        }
+
+        /* Connector Lines */
+        .bracket-round:not(:last-child) .bracket-match::after {
+            content: '';
+            position: absolute;
+            right: -2rem;
+            top: 50%;
+            width: 2rem;
+            height: 2px;
+            background: var(--border-color);
+        }
+
+        /* Specific connector logic would be complex with pure CSS, 
+           simulating simpler flow for now or using SVG lines if needed. 
+           For this "Legendary" feel, clean cards are better than messy lines. */
+
+        .bracket-team {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.3rem 0;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .bracket-team.winner {
+            color: var(--accent-gold);
+            font-weight: 800;
+            text-shadow: 0 0 5px rgba(251, 191, 36, 0.4);
+        }
+
+        .bracket-team-name {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 130px;
+        }
+
+        .bracket-score {
+            font-weight: 700;
+            background: var(--bg-subtle);
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            min-width: 1.5rem;
+            text-align: center;
+        }
+
+        .bracket-team.winner .bracket-score {
+            background: rgba(251, 191, 36, 0.2);
+            color: var(--accent-gold);
+        }
+
+        .champion-crown {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.8));
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
     </style>
 </head>
 
@@ -588,6 +730,17 @@
                 5B Informatica 2025/2026
             </div>
         </header>
+
+        <!-- LEGENDARY BRACKET AREA -->
+        <div id="bracket-section" style="display:none;">
+            <h2
+                style="justify-content:center; text-align:center; color:var(--accent-gold); text-shadow: 0 0 10px rgba(251,191,36,0.3);">
+                🌟 FASE FINALE - THE LEGENDS 🌟
+            </h2>
+            <div id="bracket-container" class="bracket-container fade-in-el">
+                <!-- JS Injected Tree -->
+            </div>
+        </div>
 
         <section>
             <h2>Classifica</h2>
@@ -680,7 +833,9 @@
             professoriContainer: document.getElementById('professori-container'),
             teamsContainer: document.getElementById('teams-container'),
             statsArea: document.getElementById('stats-area'),
-            lastUpdate: document.getElementById('last-update')
+            lastUpdate: document.getElementById('last-update'),
+            bracketSection: document.getElementById('bracket-section'),
+            bracketContainer: document.getElementById('bracket-container')
         };
 
         // --- MAIN LOGIC ---
@@ -711,6 +866,14 @@
                 // Disegna le partite del calendario
                 renderMatches(allMatches);
 
+                // Se ci sono playoff, disegna il tabellone
+                if (matchesData.playoffs && matchesData.playoffs.length > 0) {
+                    renderBracket(matchesData.playoffs, standingsData.classifica);
+                    domCache.bracketSection.style.display = 'block';
+                } else {
+                    domCache.bracketSection.style.display = 'none';
+                }
+
                 // Se ci sono partite speciali (Professori), le disegna
                 if (matchesData.professori && matchesData.professori.length > 0) {
                     renderSpecials(matchesData.professori);
@@ -732,6 +895,107 @@
                     domCache.lastUpdate.innerHTML = "<span style='color:var(--danger-color)'>Errore caricamento dati. Riprova più tardi.</span>";
                 }
             }
+        }
+
+        function getShortName(fullName) {
+            if (!fullName) return "TBD";
+            if (fullName.includes('(')) {
+                return fullName.split('(')[0].trim(); // Restituisce solo il nome del giocatore
+            }
+            return fullName;
+        }
+
+        // Render Legendary Bracket
+        function renderBracket(playoffs, ranking) {
+            const container = domCache.bracketContainer;
+            container.innerHTML = '';
+
+            // Find matches by ID
+            const qf1 = playoffs.find(m => m.id === "QF1") || { squadra_a: "3° Class", squadra_b: "6° Class" };
+            const qf2 = playoffs.find(m => m.id === "QF2") || { squadra_a: "4° Class", squadra_b: "5° Class" };
+            const sf1 = playoffs.find(m => m.id === "SF1") || { squadra_a: "1° Class", squadra_b: "Vincente QF1" };
+            const sf2 = playoffs.find(m => m.id === "SF2") || { squadra_a: "2° Class", squadra_b: "Vincente QF2" };
+            const final = playoffs.find(m => m.id === "FINAL") || { squadra_a: "Vincente SF1", squadra_b: "Vincente SF2" };
+
+            // Helper to build match HTML
+            const buildMatchHtml = (match, isFinal = false) => {
+                const winner = getWinner(match);
+                const s_a = match.gol_a !== null ? match.gol_a : '-';
+                const s_b = match.gol_b !== null ? match.gol_b : '-';
+
+                // Determine winner formatting
+                const classA = winner === match.squadra_a ? 'winner' : '';
+                const classB = winner === match.squadra_b ? 'winner' : '';
+
+                // Logos
+                const logoA = getLogo(match.squadra_a);
+                const logoB = getLogo(match.squadra_b);
+
+                const crown = isFinal && winner ? '<div class="champion-crown">👑</div>' : '';
+
+                return `
+                    <div class="bracket-match ${isFinal ? 'final-match' : ''}">
+                        ${crown}
+                        <div class="bracket-team ${classA}">
+                            <div class="bracket-team-name">
+                                ${logoA ? `<img src="${logoA}" style="width:20px;height:20px;margin-right:5px">` : ''}
+                                ${getShortName(match.squadra_a)}
+                            </div>
+                            <span class="bracket-score">${s_a}</span>
+                        </div>
+                        <div class="bracket-team ${classB}">
+                            <div class="bracket-team-name">
+                                ${logoB ? `<img src="${logoB}" style="width:20px;height:20px;margin-right:5px">` : ''}
+                                ${getShortName(match.squadra_b)}
+                            </div>
+                            <span class="bracket-score">${s_b}</span>
+                        </div>
+                    </div>
+                `;
+            };
+
+            // Structure: 3 Columns (Quarters, Semis, Final)
+            // But logic says: QF1 leads to SF1, QF2 leads to SF2.
+
+            // Col 1: Quarters
+            const colQF = document.createElement('div');
+            colQF.className = 'bracket-round';
+            colQF.innerHTML = `<div class="bracket-round-title">Quarti</div>
+                               ${buildMatchHtml(qf1)}
+                               ${buildMatchHtml(qf2)}`;
+
+            // Col 2: Semis
+            const colSF = document.createElement('div');
+            colSF.className = 'bracket-round';
+            // SF1 is Top Bracket side? 1st vs Winner QF1. 
+            // SF2 is Bottom Bracket side? 2nd vs Winner QF2.
+            // Visually align SF1 with QF1 and SF2 with QF2 is standard, assuming QF1 feeds SF1.
+            // Wait, logic in py: 1st vs Winner QF1 (QF1 was 3v6). 
+            colSF.innerHTML = `<div class="bracket-round-title">Semifinali</div>
+                               ${buildMatchHtml(sf1)}
+                               ${buildMatchHtml(sf2)}`;
+
+            // Col 3: Final
+            const colFinal = document.createElement('div');
+            colFinal.className = 'bracket-round';
+            colFinal.style.justifyContent = 'center'; // Center the single final
+            colFinal.innerHTML = `<div class="bracket-round-title">Finalissima</div>
+                                  ${buildMatchHtml(final, true)}`;
+
+            container.appendChild(colQF);
+            container.appendChild(colSF);
+            container.appendChild(colFinal);
+        }
+
+        function getWinner(m) {
+            if (!m || !m.risultato) return null;
+            if (m.risultato === '90') {
+                if (parseInt(m.gol_a) > parseInt(m.gol_b)) return m.squadra_a;
+                if (parseInt(m.gol_b) > parseInt(m.gol_a)) return m.squadra_b;
+            }
+            if (m.risultato === 'rigori_a') return m.squadra_a;
+            if (m.risultato === 'rigori_b') return m.squadra_b;
+            return null;
         }
 
         // Calcola le statistiche dai dati della classifica
